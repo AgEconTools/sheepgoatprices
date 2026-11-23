@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sheep &amp; Goat Auction Prices</title>
+<meta name="description" content="Goat, lamb and sheep prices from USDA livestock auction reports, by state and auction.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mississippi State University Extension">
+<meta property="og:title" content="Sheep &amp; Goat Auction Prices">
+<meta property="og:description" content="Goat, lamb and sheep prices from USDA livestock auction reports, by state and auction.">
+<meta property="og:url" content="https://agecontools.github.io/sheepgoatprices/">
+<meta property="og:image" content="https://agecontools.github.io/sheepgoatprices/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sheep &amp; Goat Auction Prices: goat, lamb and sheep prices from USDA auction reports, by state and auction. Mississippi State University Extension.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://agecontools.github.io/sheepgoatprices/">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Visit counts: GoatCounter, no cookies and no personal data (Josh, 11/2026). It skips localhost. -->
+<script data-goatcounter="https://agecontools.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+/* Fonts served from the site itself (dashboard/fonts/, copied to site/fonts/), as on the cattle page:
+   no request to Google from a visitor's browser. Bitter and Public Sans, SIL Open Font License. */
+@font-face { font-family: "Bitter"; font-style: normal; font-weight: 600 700; font-display: swap;
+  src: url("fonts/bitter-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Public Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("fonts/public-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* The cattle auction page's look (MSCattledata/dashboard/page.html), copied, not shared: a maroon
+   market-report masthead, the pickers, then one question per tab; numbers set like a printed sale report. */
+:root {
+  --bg: #f7f5f5;          /* page: neutral leaning toward maroon */
+  --surface: #ffffff;
+  --ink: #1c1c1c;
+  --ink-2: #4a4446;       /* secondary text */
+  --muted: #6f686a;
+  --rule: #e4dfe0;
+  --accent: #5d1725;      /* MSU maroon */
+  --accent-ink: #ffffff;
+  --accent-soft: #f3e9eb;
+  --line-1: #9b3047;      /* this year / now */
+  --line-2: #1c1c1c;      /* 3-year average, dashed */
+  --line-3: #777777;      /* last year */
+  --band: #c1c6c8;
+  --up: #2e6b3f;          /* price up: green */
+  --down: #b3261e;        /* price down: red */
+  --focus: #c99700;       /* MSU gold, focus ring only */
+  --warn-bg: #fff3d6;     /* few sales: amber */
+  --warn-ink: #7a4600;
+  --warn-line: #c98a12;
+  --display: "Bitter", Georgia, "Times New Roman", serif;
+  --body: "Public Sans", Arial, Helvetica, sans-serif;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151112; --surface: #1f191b; --ink: #f1ecee; --ink-2: #cfc6c9; --muted: #a59a9e;
+    --rule: #3a3134; --accent: #6e1d2e; --accent-ink: #ffffff; --accent-soft: #33212a;
+    --line-1: #e07a90; --line-2: #f1ecee; --line-3: #9a9194; --band: #4d4447;
+    --up: #86c995; --down: #f2958c; --focus: #e2b93b;
+    --warn-bg: #3b2c0e; --warn-ink: #f6c56a; --warn-line: #d9a032; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151112; --surface: #1f191b; --ink: #f1ecee; --ink-2: #cfc6c9; --muted: #a59a9e;
+  --rule: #3a3134; --accent: #6e1d2e; --accent-ink: #ffffff; --accent-soft: #33212a;
+  --line-1: #e07a90; --line-2: #f1ecee; --line-3: #9a9194; --band: #4d4447;
+  --up: #86c995; --down: #f2958c; --focus: #e2b93b;
+  --warn-bg: #3b2c0e; --warn-ink: #f6c56a; --warn-line: #d9a032; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.5 var(--body);
+       -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+               z-index: 10; background: var(--bg); }
+.wrap { max-width: 1040px; margin: 0 auto;
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* masthead */
+.mast { background: var(--accent); color: var(--accent-ink); }
+.mast .wrap { padding-block: 22px 20px; display: grid; gap: 14px;
+              grid-template-columns: 1fr auto; align-items: end; }
+h1 { font: 700 clamp(28px, 5vw, 40px)/1.08 var(--display); margin: 0; text-wrap: balance; }
+.asof { margin: 6px 0 0; font-size: 14px; opacity: .88; }
+.asof.edu { margin-top: 2px; font-size: 13px; }
+.asof a { color: inherit; }
+.disc { border: 1px solid var(--rule); border-left: 4px solid var(--ink-2); background: var(--surface); border-radius: 8px;
+        padding: 14px 16px; max-width: 78ch; display: grid; gap: 6px; }
+.disc h2 { font-size: 17px; }
+.disc p { margin: 0; }
+.disc details.method { border-top: 0; padding-top: 0; }
+.disc details.method p + p { margin-top: 8px; }
+.pickers { display: flex; gap: 10px; flex-wrap: wrap; min-width: 0; }
+.picker { display: grid; gap: 4px; min-width: 0; }
+.picker label, .picker .lab { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+                opacity: .85; }
+.picker select { appearance: none; -webkit-appearance: none; background: var(--surface); color: var(--ink);
+  border: 0; border-radius: 8px; padding: 11px 40px 11px 14px; font-weight: 600; font-size: 16px;
+  min-width: 230px; max-width: 100%; cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+                    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+  background-size: 6px 6px; background-repeat: no-repeat; }
+.picker select.st { min-width: 150px; }
+/* goats or sheep, the whole page (Josh, 11/23/2026; the cattle page's lots switch) */
+.picker .seg.sp { border: 0; padding: 3px; flex-wrap: nowrap; }
+.picker .seg.sp button { padding: 8px 14px; font-size: 15px; white-space: nowrap; }
+
+/* sale tally: one line of head counts */
+.tally { background: var(--surface); border-bottom: 1px solid var(--rule); }
+.tally .wrap { padding-block: 11px 12px; display: grid; gap: 3px; }
+.tally .lead { font-weight: 600; color: var(--ink-2); font-size: 14px; }
+.tally .row { font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; line-height: 1.5; }
+.tally .row b { font-size: 17px; color: var(--ink); }
+.tally .row b.big { color: var(--accent); font-size: 19px; }
+:root[data-theme="dark"] .tally .row b.big { color: var(--line-1); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tally .row b.big { color: var(--line-1); } }
+
+/* tabs */
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg);
+        border-bottom: 1px solid var(--rule); }
+.tabs .wrap { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding-block: 8px; }
+.tabs .wrap::-webkit-scrollbar { display: none; }
+.tab { flex: 0 0 auto; border: 0; background: transparent; padding: 9px 14px; border-radius: 999px;
+       font-weight: 600; font-size: 15px; color: var(--ink-2); cursor: pointer; white-space: nowrap; }
+.tab:hover { background: var(--accent-soft); color: var(--ink); }
+.tab[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); }
+.tab[hidden] { display: none; }
+
+/* panels */
+main { padding-block: 26px 40px; }
+.panel { display: grid; gap: 18px; }
+.panel > * { min-width: 0; }
+h2 { font: 700 clamp(22px, 3.4vw, 28px)/1.2 var(--display); margin: 0; text-wrap: balance; }
+h3.card-h { margin: 0; font: 700 17px/1.3 var(--body); }
+.sub { margin: 4px 0 0; color: var(--ink-2); font-size: 15px; max-width: 68ch; }
+.note { margin: 0; color: var(--muted); font-size: 13.5px; max-width: 72ch; }
+.chip-scope { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--accent); background: var(--accent-soft);
+  padding: 3px 9px; border-radius: 999px; vertical-align: middle; margin-left: 6px; }
+:root[data-theme="dark"] .chip-scope { color: var(--line-1); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chip-scope { color: var(--line-1); } }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r); padding: 18px; }
+.card.stack { display: grid; gap: 10px; }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: end; }
+.controls[hidden] { display: none; }
+.seg { display: inline-flex; background: var(--surface); border: 1px solid var(--rule); border-radius: 999px;
+       padding: 3px; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; padding: 7px 14px; border-radius: 999px; cursor: pointer;
+              font-weight: 600; font-size: 14px; color: var(--ink-2); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.seg:empty { display: none; }
+
+/* report table */
+.tablewrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+caption { text-align: left; font: 700 16px/1.3 var(--body); padding: 0 0 8px; }
+th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; padding-left: 0; }
+th:last-child, td:last-child { padding-right: 0; }
+thead th { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+td.price { font-weight: 700; font-size: 17px; }
+td.price.tiny { font-weight: 400; color: var(--muted); }   /* 1 or 2 head: shown as reported, not set like a market price */
+td.wtcol { color: var(--ink-2); }
+/* a price that opens its range (the cattle page's price box): looks like the number, with a dotted underline */
+.pbtn { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+        border-bottom: 1.5px dotted var(--muted); font-variant-numeric: tabular-nums; }
+.pbtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 2px; }
+.rtip { position: absolute; z-index: 30; background: var(--surface); color: var(--ink); border: 1px solid var(--rule);
+        border-radius: 8px; padding: 10px 40px 10px 12px; font-size: 14px; box-shadow: 0 4px 16px rgba(0,0,0,.14); }
+.rtip .rt-h { display: block; font-weight: 700; margin-bottom: 6px; }
+.rtip dl { margin: 0; display: grid; grid-template-columns: auto auto; gap: 4px 14px; font-variant-numeric: tabular-nums; }
+.rtip dt { color: var(--muted); }
+.rtip dd { margin: 0; font-weight: 700; text-align: right; }
+.rtip .x { position: absolute; top: 4px; right: 4px; width: 30px; height: 30px; border: 0; background: none;
+           color: var(--muted); font-size: 20px; line-height: 1; cursor: pointer; border-radius: 6px; }
+.rtip .x:hover { color: var(--ink); background: var(--accent-soft); }
+tr.rsel td { background: var(--accent-soft); }
+.pbtn[aria-expanded="true"] { border-bottom: 1.5px solid var(--accent); }
+.chg { font-weight: 600; }
+.chg.up { color: var(--up); } .chg.down { color: var(--down); }
+.chg.muted { color: var(--muted); font-weight: 500; }
+.few { display: inline-flex; align-items: center; gap: 3px; margin-left: 6px; font-size: 11.5px; font-weight: 700;
+       color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 4px;
+       padding: 0 5px; white-space: nowrap; vertical-align: middle; }
+.few::before { content: "⚠"; }
+tr.thin td { background: var(--warn-bg); }
+.warn { display: flex; gap: 8px; align-items: flex-start; grid-column: 1 / -1; margin: 0; background: var(--warn-bg);
+        color: var(--warn-ink); border-left: 4px solid var(--warn-line); border-radius: 6px; padding: 10px 12px;
+        font-size: 14px; font-weight: 600; }
+.warn::before { content: "⚠"; }
+.stale-row { padding-block: 14px 0; }
+.unit-band { padding-block: 14px 0; }
+.unit-band p { margin: 0; max-width: 70ch; font-size: 14px; line-height: 1.5; color: var(--ink-2);
+               border-left: 3px solid var(--accent); padding: 2px 0 2px 10px; }
+.chart .fewpt { fill: var(--warn-bg); stroke: var(--warn-line); stroke-width: 2.5; }
+.fewkey { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 2.5px solid var(--warn-line); background: var(--warn-bg); }
+.none { color: var(--muted); font-weight: 400; font-size: 14px; }
+.headsm { display: none; }
+.fewhead { color: var(--warn-ink); font-weight: 700; }
+.legend-few { margin: 0 0 6px; font-size: 13px; color: var(--warn-ink); font-weight: 600; }
+.facts { display: grid; gap: 10px; }
+.facts h3 { margin: 0; font: 700 15px/1.3 var(--body); color: var(--ink-2); }
+.facts dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px 24px; margin: 0; }
+.facts dt { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 2px 0 0; font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.facts dd small { display: block; font-size: 12.5px; font-weight: 400; color: var(--muted); }
+.facts .gmix { margin: 0; font-size: 13px; color: var(--muted); }
+.facts .gmix a { color: inherit; }
+
+/* holidays */
+.hol td, .hol th { white-space: normal; vertical-align: top; }
+.hol td:first-child { white-space: nowrap; }
+.hol .eff { font-weight: 700; display: block; }
+.hol .eff.up { color: var(--up); } .hol .eff.down { color: var(--down); } .hol .eff.flat { color: var(--ink-2); font-weight: 600; }
+.hol .rng { display: block; font-size: 12.5px; color: var(--muted); }
+.next { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.next li { display: flex; flex-wrap: wrap; gap: 2px 10px; font-size: 15px; }
+.next li b { min-width: 9.5em; }
+.next li span { color: var(--ink-2); }
+.packer td:first-child { white-space: nowrap; }
+
+/* charts */
+.chart { position: relative; width: 100%; }
+.chart:focus:not(:focus-visible), .chart svg:focus:not(:focus-visible) { outline: none; }
+.chart svg:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.chart .kbox { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 4 3; pointer-events: none; }
+.chart svg { display: block; width: 100%; overflow: visible; }
+.chart text { fill: var(--ink-2); font: 500 12px var(--body); font-variant-numeric: tabular-nums; }
+.chart .endlab { fill: var(--ink); font-weight: 700; font-size: 12.5px; }
+.chart .axis { stroke: var(--muted); stroke-width: 1; fill: none; }
+.chart .ref { stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 4 3; fill: none; }
+.chart .cross { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 3; }
+.chart .s1 { stroke: var(--line-1); } .chart .f1 { fill: var(--line-1); }
+.chart .s2 { stroke: var(--line-2); } .chart .f2 { fill: var(--line-2); }
+.chart .s3 { stroke: var(--line-3); } .chart .f3 { fill: var(--line-3); }
+.chart .fpos { fill: var(--up); } .chart .fneg { fill: var(--down); }
+.tip { position: absolute; pointer-events: none; background: var(--surface); color: var(--ink);
+       border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; font-size: 13px;
+       box-shadow: 0 4px 16px rgba(0,0,0,.12); white-space: nowrap; z-index: 2; }
+.tip b { display: block; margin-bottom: 2px; }
+.tip .row { display: flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; }
+.key { display: inline-block; width: 18px; height: 0; border-top: 3px solid; vertical-align: middle; }
+.key.dash { border-top-style: dashed; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; color: var(--ink-2); margin: 0; padding: 0; list-style: none; }
+.legend li { display: flex; align-items: center; gap: 7px; }
+.k1 { border-color: var(--line-1); } .k2 { border-color: var(--line-2); } .k3 { border-color: var(--line-3); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 6px 12px;
+                font-weight: 600; font-size: 14px; color: var(--ink-2); cursor: pointer; font-variant-numeric: tabular-nums; }
+.chips button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
+.linkish { border: 0; background: none; padding: 0; color: var(--ink-2); text-decoration: underline; cursor: pointer; font-size: 13px; }
+
+footer { border-top: 1px solid var(--rule); }
+footer .wrap { padding-block: 26px 40px; display: grid; gap: 10px; color: var(--ink-2); font-size: 14px; }
+footer h2 { font-size: 18px; }
+footer ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; max-width: 78ch; }
+footer p { margin: 0; max-width: 78ch; }
+footer .wrap > details.method { border-top: 0; padding-top: 0; }
+/* official MSU Extension footer (as the cattle and drought pages): the Extension logo at MSU's minimum for the
+   horizontal mark, 300 px wide, never shrunk on a phone; the official maroon file on the light page and the
+   official white file on the dark page, never a recolored copy; the hidden one is display:none */
+footer .legal { display: grid; gap: 8px; margin-top: 14px; }
+.legal .home { display: block; justify-self: start; width: 300px; color: var(--ink); line-height: 0; }
+.legal .logo { width: 300px; min-width: 300px; height: auto; flex: none; display: block; margin: 0 0 14px; }
+.legal .logo-dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .legal .logo-light { display: none; }
+  :root:not([data-theme="light"]) .legal .logo-dark { display: block; }
+}
+:root[data-theme="dark"] .legal .logo-light { display: none; }
+:root[data-theme="dark"] .legal .logo-dark { display: block; }
+.legal .note a { color: inherit; }
+/* Share this view (ADDRESS_STANDARD.md): the phone's share sheet, else copy; where the clipboard is blocked,
+   the link in a box to copy by hand (the catfish dashboard's fix, versions 43-44). No "More cattle tools"
+   strip: this tool stands alone during the beta (Josh, 11/23/2026). */
+.asof.tools-line { margin-top: 6px; font-size: 13px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; }
+.share-btn { all: unset; cursor: pointer; text-decoration: underline; color: inherit; font: inherit; }
+.share-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 2px; }
+.share-box { margin-top: 8px; font-size: 13px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.share-box[hidden] { display: none; }
+.share-box input { flex: 1 1 18em; min-width: 0; max-width: 40em; font: inherit; font-size: 14px; padding: 6px 8px; border-radius: 4px;
+  border: 1px solid currentColor; background: rgba(255, 255, 255, .12); color: inherit; }
+.share-box input:focus { outline: 2px solid currentColor; outline-offset: 1px; }
+@media print { .share-box, .tools-line { display: none; } }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+details.method { border-top: 1px solid var(--rule); padding-top: 10px; max-width: 72ch; }
+details.method > summary { cursor: pointer; font-weight: 600; font-size: 14px; color: var(--ink-2); list-style: none; }
+details.method > summary::-webkit-details-marker { display: none; }
+details.method > summary::before { content: "▸ "; }
+details.method[open] > summary::before { content: "▾ "; }
+details.method > :not(summary) { margin-top: 10px; }
+.short { margin: 0; font-size: 13.5px; color: var(--muted); }
+
+@media (max-width: 640px) {
+  .mast .wrap { grid-template-columns: 1fr; padding-block: 12px 12px; gap: 10px; }
+  h1 { font-size: 24px; }
+  .asof { margin-top: 3px; font-size: 13px; }
+  .asof.edu, .asof.tools-line { margin-top: 1px; font-size: 12.5px; }
+  .pickers { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 6px 8px; }
+  .picker.sp-pick { grid-column: 1 / -1; }
+  .picker .seg.sp { display: flex; } .picker .seg.sp button { flex: 1; padding: 6px 10px; font-size: 14px; }
+  .picker label, .picker .lab { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .picker select { padding-block: 8px; padding-right: 34px; font-size: 15px; width: 100%; min-width: 0;
+                   background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%; }
+  .picker select.st { width: 100%; min-width: 0; }
+  .card { padding: 14px 12px; }
+  .tally .wrap { padding-block: 7px 8px; gap: 1px; }
+  .tally .lead { font-size: 13px; }
+  .tally .row { font-size: 13.5px; line-height: 1.4; }
+  .tally .row b { font-size: 15px; } .tally .row b.big { font-size: 16px; }
+  .tabs .wrap { flex-wrap: wrap; overflow: visible; gap: 2px 2px; padding-block: 5px; }
+  .tab { flex: 1 1 auto; padding: 6px 5px; font-size: 13.5px; }
+  table { font-size: 14px; }
+  th, td { padding: 9px 3px; }
+  thead th { white-space: normal; font-size: 11px; vertical-align: bottom; }
+  td:first-child { white-space: normal; }
+  td.price { font-size: 15px; }
+  .pct, .headcol, .sm-hide { display: none; }
+  .headsm { display: block; font-size: 12px; color: var(--muted); }
+}
+@media (max-width: 359px) {
+  .tab { padding: 6px 4px; font-size: 13px; }
+  table { font-size: 13px; }
+  th, td { padding: 8px 2px; }
+  thead th { font-size: 10.5px; }
+  td.price { font-size: 14px; }
+}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div>
+      <h1>Sheep &amp; Goat Auction Prices</h1>
+      <p class="asof" id="asof">Loading the latest sale reports…</p>
+      <p class="asof" id="linknote" hidden></p>
+      <p class="asof edu">For educational use only. <a href="#disclaimer" id="to-disc">Read the disclaimer</a>.</p>
+      <p class="asof tools-line"><button type="button" class="share-btn" id="share-view">Share this view</button><span class="sr-only" role="status" id="share-msg"></span></p>
+      <div class="share-box" id="share-box" hidden><label for="share-url">Copy this link:</label><input id="share-url" type="text" readonly spellcheck="false"><button type="button" class="share-btn" id="share-close">Close</button></div>
+    </div>
+    <div class="pickers">
+      <div class="picker sp-pick">
+        <span class="lab" id="sp-lab">Animals</span>
+        <div class="seg sp" id="species" role="group" aria-labelledby="sp-lab"></div>
+      </div>
+      <div class="picker">
+        <label for="state">State</label>
+        <select id="state" class="st"></select>
+      </div>
+      <div class="picker">
+        <label for="market">Auction</label>
+        <select id="market"></select>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="tally" aria-label="Head sold">
+  <div class="wrap" id="tally"></div>
+</section>
+<div class="wrap unit-band" id="unit-band" hidden><p id="unit-band-p"></p></div>
+<div class="wrap stale-row" id="stale-row" hidden><p class="warn" role="status" id="stale"></p></div>
+
+<nav class="tabs" aria-label="Questions">
+  <div class="wrap" role="tablist" id="tablist">
+    <button class="tab" role="tab" id="t-week" aria-controls="week" data-tab="week">This week</button>
+    <button class="tab" role="tab" id="t-trend" aria-controls="trend" data-tab="trend">Price trend</button>
+    <button class="tab" role="tab" id="t-season" aria-controls="season" data-tab="season">Seasonal &amp; holidays</button>
+    <button class="tab" role="tab" id="t-lamb" aria-controls="lamb" data-tab="lamb">National lamb</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <noscript><p class="warn">This page needs JavaScript to show the prices.</p></noscript>
+  <section class="panel" id="week" role="tabpanel" aria-labelledby="t-week">
+    <h2 class="sr-only" id="week-h">Prices by week</h2>
+    <div class="controls" id="week-pick-row"><div class="seg" id="week-pick"></div></div>
+    <div class="controls"><div class="seg" id="week-class"></div><div class="seg" id="week-grade"></div></div>
+    <div class="card tablewrap"><table id="week-table"></table></div>
+    <div class="card facts" id="week-facts"></div>
+    <details class="method"><summary>How this is calculated</summary><p class="note" id="week-note"></p></details>
+  </section>
+
+  <section class="panel" id="trend" role="tabpanel" aria-labelledby="t-trend" hidden>
+    <div>
+      <h2>How do prices this year compare?</h2>
+      <p class="sub" id="trend-sub"></p>
+    </div>
+    <div class="controls"><div class="seg" id="trend-class"></div><div class="seg" id="trend-grade"></div></div>
+    <div class="chips" id="trend-series" aria-label="Weight group"></div>
+    <div class="card stack">
+      <p style="margin:0;font-weight:600" id="trend-summary"></p>
+      <ul class="legend" id="trend-legend"></ul>
+      <div class="chart" id="trend-chart"></div>
+      <p class="note" id="trend-season" style="margin:0"></p>
+    </div>
+    <div class="card stack" id="curve-card">
+      <div>
+        <h3 class="card-h"><span id="curve-title">Price by weight</span> <span class="chip-scope">Statewide</span></h3>
+        <p class="note" id="curve-sub"></p>
+      </div>
+      <ul class="legend" id="curve-legend"></ul>
+      <div class="chart" id="curve-chart"></div>
+    </div>
+    <details class="method"><summary>How this is calculated</summary><p class="note" id="trend-note"></p></details>
+  </section>
+
+  <section class="panel" id="season" role="tabpanel" aria-labelledby="t-season" hidden>
+    <div>
+      <h2>Seasonal trend <span class="chip-scope">Statewide</span></h2>
+      <p class="sub" id="season-sub"></p>
+    </div>
+    <div class="controls"><div class="seg" id="season-class"></div><div class="seg" id="season-grade"></div></div>
+    <div class="chips" id="season-series" aria-label="Weight group"></div>
+    <div class="card stack">
+      <p style="margin:0;font-weight:600" id="season-summary"></p>
+      <div class="chart" id="season-chart"></div>
+    </div>
+    <div>
+      <h2>Do holidays lift prices? <span class="chip-scope">Statewide</span></h2>
+      <p class="sub" id="hol-sub"></p>
+    </div>
+    <div class="controls"><div class="seg" id="hol-class"></div></div>
+    <div class="card tablewrap" id="hol-card"><table class="hol" id="hol-table"></table><p class="note" id="hol-none" style="margin:0" hidden></p></div>
+    <div class="card stack">
+      <h3 class="card-h">Coming up</h3>
+      <ul class="next" id="hol-next"></ul>
+      <p class="note" style="margin:0">Islamic holiday dates follow the Umm al-Qura calendar; U.S. observance can be a day later.</p>
+    </div>
+    <details class="method"><summary>How this is calculated</summary>
+      <p class="note">Seasonal trend: each bar shows how far that month's price usually runs above or below the average of the 12
+        months around it, averaged over the years shown, for every listed auction in the state together. Measuring against the
+        months around it keeps a rising market from making the late months look better than they were. Thin lines on each bar
+        show the lowest and highest year. A pattern is shown only where every month had sales in at least 3 of the 5 years.</p>
+      <p class="note">Holidays: each sale's price as a share of its own auction's average over the 12 months around it, averaged
+        over the sales in each window for each year's holiday, then over the years. The figure includes the usual season (Easter
+        always falls in spring), so it shows what prices did around the holiday, not what the holiday alone added. Eid al-Fitr
+        and Eid al-Adha come about 11 days earlier each year, so their years fall in different seasons. The range is the lowest
+        and highest year. A window needs sales in at least 3 years; USDA's reports go back to 2019, and the most recent months
+        aren't counted until a year of sales surrounds them.</p>
+    </details>
+  </section>
+
+  <section class="panel" id="lamb" role="tabpanel" aria-labelledby="t-lamb" hidden>
+    <div>
+      <h2>National lamb prices <span class="chip-scope">U.S.</span></h2>
+      <p class="sub" id="lamb-sub"></p>
+    </div>
+    <div class="controls"><div class="seg" id="lamb-kind"></div></div>
+    <div class="card stack">
+      <p style="margin:0;font-weight:600" id="lamb-summary"></p>
+      <ul class="legend" id="lamb-legend"></ul>
+      <div class="chart" id="lamb-chart"></div>
+    </div>
+    <div class="card stack">
+      <div>
+        <h3 class="card-h">Packer price for slaughter lambs</h3>
+        <p class="note" id="packer-sub"></p>
+      </div>
+      <div class="tablewrap"><table class="packer" id="packer-table"></table></div>
+    </div>
+    <details class="method"><summary>How this is calculated</summary><p class="note" id="lamb-note"></p></details>
+  </section>
+</main>
+
+<footer id="about">
+  <div class="wrap">
+    <section class="disc" id="disclaimer" aria-labelledby="disc-h">
+      <h2 id="disc-h">Disclaimer</h2>
+      <p>For educational use only. This page summarizes past USDA auction and market reports. It is not a price quote, a
+        forecast, or financial, legal or marketing advice, and you use it at your own risk.</p>
+      <details class="method" id="disc-full"><summary>Full disclaimer</summary>
+        <p>Reports can contain errors and may be late or revised. Seasonal and holiday patterns describe past years and may not
+          repeat. Consult with your auction market before you buy or sell.</p>
+        <p>The information is provided as is, without warranty of any kind. You are responsible for decisions you
+          make with it. This page is not affiliated with or endorsed by USDA, any state department of agriculture or
+          any auction market.</p>
+        <p>References to commercial products, trade names, or suppliers are made with the understanding that no
+          endorsement is implied and that no discrimination against other products or suppliers is intended.</p>
+      </details>
+    </section>
+    <h2>About these numbers</h2>
+    <p id="foot-src">Prices come from USDA Agricultural Marketing Service livestock auction reports.</p>
+    <details class="method" id="foot-how"><summary>How these numbers are calculated</summary>
+      <ul>
+        <li>Goats are Selection 1 or Selection 2, as picked. Slaughter lambs are Choice and Prime plus Choice: some auctions
+          grade most lambs Choice and Prime, others mostly Choice, so both count. Feeder lambs, ewes and rams are every grade
+          reported for that line. Lots the reporter describes (fancy, yearlings, pygmies and others) are left out.</li>
+        <li id="foot-unit">Each state is shown the way most of its head sell: per hundredweight (cwt) or by the head. Prices are
+          averaged by head.</li>
+        <li>"All auctions" combines every auction in the state that has reported a sale in the last four months. Each change
+          compares each auction with its own previous sale and with its own sale nearest a year earlier, counting only the
+          auctions that sold that line both times, so an auction missing from one side can't move it.</li>
+        <li>Likely reporting errors and reports USDA published twice for one sale are left out.</li>
+      </ul>
+    </details>
+    <div class="legal">
+      <a class="home" href="https://extension.msstate.edu" aria-label="Mississippi State University Extension"><svg class="logo logo-light" viewBox="0 0 617 116" width="300" height="56" role="img" aria-label="Mississippi State University Extension" focusable="false"><g><path fill="#5D1725" d="M108.7,41.7c6.3,2.4,12.2,5.4,17.7,9l-4,8.7l4.8,15.5c-3.6-2.4-7.4-4.5-10.7-6.2l0,8.5c-2.5-1.5-5.1-2.8-7.9-4 v3.6l3.8,5.7v7.9H87V67.1c-0.9-0.1-1.8-0.2-2.8-0.3l-9.9,15.6l-9.9-15.6c-0.9,0.1-1.9,0.2-2.8,0.3v23.3H36.3v-7.9l3.8-5.7v-3.6 c-2.8,1.2-5.4,2.6-7.9,4v-8.5c-3.3,1.7-7,3.8-10.7,6.2l4.8-15.5l-4-8.7c5.4-3.6,11.4-6.6,17.7-9v-1.9l-3.8-6v-7.6h23.8l9.2,14.3 c1.7-0.1,3.4-0.2,5-0.2c1.7,0,3.4,0.1,5,0.2l9.2-14.3h23.8v7.6l-3.8,6V41.7z"/><path fill="#FEFEFE" d="M40,44.5c-5.2,2-10,4.4-14.4,7.2l3.5,7.6L26,69.2c2-1.2,4.1-2.3,6.2-3.3V51.2c2.4-1.2,5.9-3,7.9-3.8V44.5z"/><path fill="#FEFEFE" d="M74.4,63.5c13.3,0,27.4,3.4,39.5,9.4V52.8c-12.1-6.3-26.2-9.7-39.5-9.7c-13.3,0-27.4,3.5-39.5,9.7V73 C47,66.9,61.1,63.5,74.4,63.5z"/><path fill="#FEFEFE" d="M108.7,44.5c5.2,2,10,4.4,14.4,7.2l-3.5,7.6l3.1,9.9c-2-1.2-4.1-2.3-6.2-3.3V51.2c-2.4-1.2-5.9-3-7.9-3.8V44.5 z"/><g><path fill="#5D1725" d="M66.9,50.4c-0.8,0.1-1.6,0.2-2.5,0.2v-1.7l-2.7,0.4v9.6c0,0,1.2-0.2,1.2-0.2v2.5c-1.9,0.2-3.8,0.6-5.6,0.9 v-2.5l1.2-0.2c0,0,0-9.6,0-9.6l-2.6,0.5V52c-0.8,0.2-1.6,0.4-2.4,0.6v-4.2c4.4-1.1,8.9-1.9,13.3-2.2V50.4z M51.6,52.5 c-1,0.3-2.1,0.6-3.1,0.9v-1.1l-4.4,1.5v3.3c0,0,4.1-1.5,5.7-2l1.8,1.2v4.7L49,64.3c-1.9,0.6-3.8,1.3-5.7,2 c-0.7-0.5-1.5-0.9-2.2-1.4v-1.8c1-0.4,2-0.8,3-1.2v1.7l0.4-0.2c1.2-0.5,4-1.4,4-1.4v-4.2c0,0-4.1,1.4-5.8,2.1l-1.6-1.1V55l2.4-3.4 c1.9-0.7,3.8-1.4,5.7-2c0.8,0.5,1.6,1,2.3,1.6V52.5z M93.1,52.3c-0.8-0.2-1.6-0.4-2.4-0.5V50L88,49.5v9.6c0,0,1.2,0.2,1.2,0.2v2.5 c-1.9-0.3-3.8-0.6-5.6-0.8v-2.5l1.2,0.1c0,0,0-9.6,0-9.6l-2.7-0.3v1.7c-0.8-0.1-1.6-0.1-2.5-0.2v-4.2c4.5,0.3,9,1,13.4,2V52.3z M99.6,52.4v3.6c0,0,2.8,0.9,4.1,1.4v2.2c-1.2-0.5-4.1-1.4-4.1-1.4V62l4.4,1.5v-1.1c1,0.4,2,0.8,3,1.2v3.6 c-3.8-1.6-7.7-2.9-11.7-4v-2.5l1.2,0.3c0,0,0-9.6,0-9.6c0,0-1.2-0.3-1.2-0.3v-2.5c4,1,7.9,2.4,11.7,4V56c-1-0.4-2-0.8-3-1.2v-0.9 C104,53.9,99.6,52.4,99.6,52.4z M73.2,49c0,0-1.6,4.6-1.6,4.6l3.2,0L73.2,49z M80.5,60.8c-1.8-0.1-3.6-0.2-5.4-0.2V58l1.2,0 c0,0-0.8-2.3-0.8-2.3l-4.8,0.1l-0.8,2.3c0,0,1.2,0,1.2,0v2.5c-1.7,0.1-3.4,0.2-5.1,0.3v-2.5l1.2-0.1c0,0,4.4-12.4,4.4-12.4 c1.1,0,2.3,0,3.5,0l4.2,12.3c0,0,0.9,0.1,1.3,0.1V60.8z"/></g></g><g><path fill="#5D1725" d="M177,61.8h-7.6v4.7h7.3V70h-7.3v5.7h7.6v3.6h-11.7V58.2H177V61.8z"/><path fill="#5D1725" d="M186.7,68.1l-6.3-10h4.9l3.7,6.5l3.9-6.5h4.9l-6.5,10l7.2,11.2h-4.8l-4.7-7.7l-4.9,7.7h-4.9L186.7,68.1z"/><path fill="#5D1725" d="M208.3,79.3h-4.1V61.8h-4.7v-3.6H213v3.6h-4.7V79.3z"/><path fill="#5D1725" d="M227.8,61.8h-7.6v4.7h7.3V70h-7.3v5.7h7.6v3.6h-11.7V58.2h11.7V61.8z"/><path fill="#5D1725" d="M232.3,79.3V57.7h2.8L248,72.4V58.2h4.1v21.5h-2.8L236.4,65v14.3H232.3z"/><path fill="#5D1725" d="M269.9,60.2l-2.1,2.8c-1-1.1-2.2-1.7-3.4-1.7c-0.8,0-1.5,0.2-2.1,0.7c-0.6,0.5-0.9,1-0.9,1.7 c0,0.6,0.2,1,0.7,1.4c0.4,0.4,1.3,0.8,2.5,1.2c2.3,0.8,3.8,1.7,4.6,2.5c1,1,1.5,2.4,1.5,4.1c0,2.1-0.7,3.7-2.1,5 c-1.4,1.3-3.1,1.9-5.3,1.9c-3,0-5.4-1.3-7.3-4l2.7-2.6c1,1.9,2.5,2.8,4.4,2.8c1,0,1.7-0.3,2.4-0.8c0.6-0.6,0.9-1.3,0.9-2.1 c0-0.8-0.3-1.4-0.8-1.8c-0.3-0.2-0.7-0.4-1.2-0.7c-0.6-0.3-1.3-0.6-2.1-0.9c-1.9-0.7-3.3-1.5-4-2.3c-0.8-0.9-1.2-2-1.2-3.4 c0-1.8,0.6-3.2,1.9-4.4c1.2-1.2,2.8-1.8,4.7-1.8C266,57.8,268.1,58.6,269.9,60.2z"/><path fill="#5D1725" d="M278.8,58.2v21.1h-4.1V58.2H278.8z"/><path fill="#5D1725" d="M283.1,68.6c0-3,1.1-5.6,3.3-7.7c2.2-2.1,4.9-3.2,8-3.2c3.2,0,5.8,1.1,8,3.2c2.2,2.1,3.3,4.7,3.3,7.8 c0,3.1-1.1,5.7-3.3,7.9c-2.2,2.1-4.9,3.2-8.1,3.2c-2.8,0-5.3-0.9-7.4-2.7C284.3,74.9,283.1,72.1,283.1,68.6z M287.3,68.6 c0,2.1,0.7,3.8,2.1,5.2c1.4,1.4,3,2.1,5,2.1c1.9,0,3.6-0.7,5-2.1c1.4-1.4,2.1-3.2,2.1-5.2c0-2-0.7-3.7-2.1-5.1 c-1.4-1.4-3-2.1-5-2.1c-1.9,0-3.6,0.7-5,2.1C288,65,287.3,66.7,287.3,68.6z"/><path fill="#5D1725" d="M309.9,79.3V57.7h2.8l12.9,14.7V58.2h4.1v21.5h-2.8L314,65v14.3H309.9z"/></g><g><path fill="#5D1725" d="M178.8,48.6v-8.8l-4.2,7.7l-4.2-7.7v8.8l1.3,0.9v2.6h-6.7v-2.6l1.3-0.9V36.1l-1.3-0.9v-2.6h5.8l3.7,6.9 l3.9-6.9h5.7v2.6l-1.3,0.9v12.5l1.3,0.9v2.6h-6.7v-2.6L178.8,48.6z"/><path fill="#5D1725" d="M194.4,52.1h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#5D1725" d="M210.1,35.5l0.3,0.3V38H206v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8L202,40h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L210.1,35.5z"/><path fill="#5D1725" d="M226,35.5l0.3,0.3V38h-4.4v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8l0.1,0.1h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L226,35.5z"/><path fill="#5D1725" d="M236.5,52.1h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#5D1725" d="M252.2,35.5l0.3,0.3V38H248v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8L244,40h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L252.2,35.5z"/><path fill="#5D1725" d="M268.1,35.5l0.3,0.3V38H264v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8L260,40h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L268.1,35.5z"/><path fill="#5D1725" d="M278.6,52.1h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#5D1725" d="M295.4,35.6l0.3,0.3v6.3l-2.7,2.9l-0.3,0.3h-5.3v3.2l1.5,0.9v2.6h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h11.1 L295.4,35.6z M291.3,37.1l-0.5-0.5h-3.4v4.8h3.4l0.5-0.5V37.1z"/><path fill="#5D1725" d="M312,35.6l0.3,0.3v6.3l-2.7,2.9l-0.3,0.3H304v3.2l1.5,0.9v2.6h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h11.1 L312,35.6z M307.9,37.1l-0.5-0.5H304v4.8h3.4l0.5-0.5V37.1z"/><path fill="#5D1725" d="M321.9,52.1h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#5D1725" d="M348,35.5l0.3,0.3V38h-4.4v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8l0.1,0.1h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L348,35.5z"/><path fill="#5D1725" d="M350.4,32.6h15.7v6.2h-3.6v-2.1h-2v12l1.4,0.9v2.6h-7.1v-2.6l1.4-0.9v-12h-2v2.1h-3.6V32.6z"/><path fill="#5D1725" d="M381.4,49.6v2.6h-6.8v-2.6l1.3-0.8l-0.8-2.7h-4.5l-0.9,2.7l1.3,0.8v2.6h-6.5v-2.5l1.3-1l4.7-15.3l0.2-0.7h4.5 l4.7,15.9L381.4,49.6z M374,42.4l-1.1-3.9l-1.2,3.9H374z"/><path fill="#5D1725" d="M379.7,32.6h15.7v6.2h-3.6v-2.1h-2v12l1.4,0.9v2.6H384v-2.6l1.4-0.9v-12h-2v2.1h-3.6V32.6z"/><path fill="#5D1725" d="M397.6,32.6h14.2v6.1h-4.4v-2.1h-4.1v3.7h4.7v3.7h-4.7v4.1h4.1v-1.4h4.4v5.4h-14.2v-2.6l1.4-0.9V36.2l-1.4-0.9 V32.6z"/><path fill="#5D1725" d="M434.1,32.6h6.9v2.7l-1.6,0.9v12.7l-2.7,2.9l-0.3,0.3h-6.9l-3-3.2V36.2l-1.4-0.9v-2.6h6.6v2.5L431,36v11.6 l0.5,0.5h3l0.5-0.5V36l-0.9-0.9V32.6z"/><path fill="#5D1725" d="M450.7,49.5v2.6h-6.6v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h5.9l5.7,10.8v-7.3l-1.2-0.9v-2.6h6.4v2.6l-1.3,0.9v16 h-4.1l-6.2-11.9v8.3L450.7,49.5z"/><path fill="#5D1725" d="M471.2,52.1H464v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#5D1725" d="M483.3,32.6h7.4v2.7l-2,1L484,52.1h-3.8l-4.9-15.9l-1.8-1v-2.7h7.1v2.6l-1.2,0.8l2.6,8.5l2.6-8.5l-1.3-0.8 V32.6z"/><path fill="#5D1725" d="M492.8,32.6h14.2v6.1h-4.4v-2.1h-4.1v3.7h4.7v3.7h-4.7v4.1h4.1v-1.4h4.4v5.4h-14.2v-2.6l1.4-0.9V36.2l-1.4-0.9 V32.6z"/><path fill="#5D1725" d="M525.7,49.6v2.5h-6.5v-2.6l0.9-0.7l-2-4.5h-2.2v4.3l1,0.9v2.5h-6.7v-2.6l1.3-0.9V36.1l-1.3-0.9v-2.6h11l3,3.2 v5.4l-2,2.1l2.3,5.2L525.7,49.6z M519.8,37.1l-0.6-0.5h-3.3v3.8h3.2l0.6-0.7V37.1z"/><path fill="#5D1725" d="M540.8,35.5l0.3,0.3V38h-4.4v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8l0.1,0.1h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L540.8,35.5z"/><path fill="#5D1725" d="M551.3,52.1h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#5D1725" d="M553.5,32.6h15.7v6.2h-3.6v-2.1h-2v12l1.4,0.9v2.6h-7.1v-2.6l1.4-0.9v-12h-2v2.1h-3.6V32.6z"/><path fill="#5D1725" d="M580.4,32.6h6.4v2.5l-1.3,1.1l-4.3,8.5v3.9l1.4,0.9v2.6h-7.1v-2.6l1.3-0.9v-3.9l-4.3-8.5l-1.2-1.1v-2.5h6.3 v2.5l-0.8,0.7l2.2,4.2l2.1-4.2l-0.8-0.7V32.6z"/></g><g><polyline fill="#5D1725" points="144.4,17.7 144.4,98.6 147.1,98.6 147.1,17.7 "/></g><g><path fill="#5D1725" d="M593.8,45.3v1.1h-2.2v5.7h-1.4v-5.7h-2.2v-1.1H593.8z M601.1,52.1l-0.3-4c0-0.5,0-1.2,0-1.9h-0.1 c-0.2,0.6-0.4,1.4-0.6,2L599,52h-1.4l-1.2-3.9c-0.1-0.5-0.3-1.3-0.5-1.9h-0.1c0,0.6,0,1.3-0.1,1.9l-0.2,4h-1.3l0.5-6.8h2l1.2,3.3 c0.1,0.5,0.3,1,0.5,1.7h0c0.2-0.6,0.3-1.2,0.5-1.7l1.2-3.4h2l0.5,6.8H601.1z"/></g></svg><svg class="logo logo-dark" viewBox="0 0 617 116" width="300" height="56" role="img" aria-label="Mississippi State University Extension" focusable="false"><g><path fill="#FFFFFF" d="M32.8,53.7v20c12-6,26.1-9.4,39.3-9.4s27.3,3.4,39.3,9.4v-20c-12-6.2-26.1-9.7-39.3-9.7 C59,44,44.8,47.5,32.8,53.7z M49.4,53.4c-1,0.3-2,0.6-3.1,0.9v-1.1L42,54.8v3.3c0,0,4-1.5,5.7-2l1.8,1.2V62l-2.5,3.2 c-1.9,0.6-3.8,1.3-5.7,2c-0.7-0.5-1.5-0.9-2.2-1.4V64c1-0.4,2-0.8,3-1.2v1.7l0.4-0.2c1.2-0.5,4-1.4,4-1.4v-4.2c0,0-4.1,1.4-5.8,2 L39,59.7v-3.9l2.4-3.3c1.9-0.7,3.8-1.4,5.7-2c0.8,0.5,1.6,1,2.3,1.5V53.4z M59.6,50.2v9.6c0,0,1.2-0.2,1.2-0.2v2.5 c-1.9,0.2-3.7,0.6-5.6,0.9v-2.5l1.2-0.2c0,0,0-9.6,0-9.6l-2.6,0.5v1.7c-0.8,0.2-1.6,0.4-2.4,0.6v-4.2c4.4-1.1,8.8-1.8,13.3-2.2v4.2 c-0.8,0.1-1.6,0.2-2.5,0.2v-1.7L59.6,50.2z M93,61.6l1.2,0.3c0,0,0-9.6,0-9.6c0,0-1.2-0.3-1.2-0.3v-2.5c3.9,1,7.9,2.4,11.6,4v3.4 c-1-0.4-2-0.8-3-1.2v-0.9c0,0-4.4-1.5-4.4-1.5v3.5c0,0,2.8,0.9,4.1,1.4v2.2c-1.2-0.5-4.1-1.4-4.1-1.4v3.8l4.4,1.5v-1.1 c1,0.4,2,0.8,3,1.2V68c-3.8-1.6-7.7-2.9-11.6-3.9V61.6z M77.5,47c4.5,0.3,8.9,1,13.3,2v4.2c-0.8-0.2-1.6-0.4-2.4-0.5V51l-2.7-0.5 V60c0,0,1.2,0.2,1.2,0.2v2.5c-1.9-0.3-3.7-0.6-5.6-0.8v-2.5l1.2,0.1c0,0,0-9.6,0-9.6L80,49.7v1.7c-0.8-0.1-1.6-0.1-2.5-0.2V47z M77,59c0,0,0.9,0.1,1.3,0.1v2.5c-1.8-0.1-3.6-0.2-5.4-0.2v-2.5l1.2,0c0,0-0.8-2.3-0.8-2.3l-4.8,0.1L67.7,59c0,0,1.2,0,1.2,0v2.5 c-1.7,0.1-3.4,0.2-5.1,0.3v-2.5l1.2-0.1c0,0,4.4-12.3,4.4-12.3c1.1,0,2.3,0,3.5,0L77,59z"/><path fill="#FFFFFF" d="M122.1,60.6l4.3-9.5c-7.1-5.3-17.8-9.6-17.8-9.6l3.7-6V24.9H85.1l-9.3,14.5c-1.2,0-2.4-0.1-3.7-0.1 c-1.2,0-2.4,0-3.7,0.1l-9.3-14.5H31.9v10.5l3.7,6c0,0-10.7,4.3-17.8,9.6l4.3,9.5l-6.3,20.2c0,0,5.5-3.8,12.2-7.8v8.9 c0,0,3.6-2.3,7-4L32,82.6v10.8h29.9V71.1l10.3,16.3l10.3-16.3v22.3h29.9V82.6l-3.2-4.8c3.5,1.7,7,4,7,4v-8.9 c6.7,4,12.2,7.8,12.2,7.8L122.1,60.6z M114.2,69.6l0,8.5c-2.5-1.5-5.1-2.8-7.9-4v3.6l3.7,5.7v7.8H84.8V68c-0.9-0.1-1.8-0.2-2.8-0.3 l-9.8,15.5l-9.8-15.5c-0.9,0.1-1.8,0.2-2.8,0.3v23.2H34.2v-7.8l3.7-5.7V74c-2.7,1.2-5.4,2.5-7.9,4v-8.5c-3.3,1.7-7,3.8-10.6,6.2 l4.8-15.4l-4-8.7c5.4-3.5,11.4-6.6,17.6-9v-1.9l-3.7-6v-7.6H58l9.2,14.3c1.7-0.1,3.3-0.2,5-0.2c1.7,0,3.3,0.1,5,0.2l9.2-14.3h23.7 v7.6l-3.7,6v1.9c6.2,2.4,12.2,5.4,17.6,9l-4,8.7l4.8,15.4C121.2,73.4,117.5,71.2,114.2,69.6z"/><path fill="#FFFFFF" d="M38,45.4c-5.2,2-9.9,4.4-14.4,7.2l3.4,7.5L23.9,70c2-1.2,4.1-2.2,6.2-3.3V52.1c2.4-1.2,5.9-2.9,7.9-3.7V45.4z" /><polygon fill="#FFFFFF" points="69.3,54.4 72.6,54.4 71,49.9 "/><path fill="#FFFFFF" d="M117.3,60.1l3.4-7.5c-4.5-2.8-9.2-5.2-14.4-7.2v2.9c2,0.8,5.5,2.5,7.9,3.7v14.7c2.1,1,4.2,2.1,6.2,3.3 L117.3,60.1z"/></g><g><path fill="#FFFFFF" d="M177,61.8h-7.6v4.7h7.3V70h-7.3v5.7h7.6v3.6h-11.7V58.2H177V61.8z"/><path fill="#FFFFFF" d="M186.7,68.1l-6.3-10h4.9l3.7,6.5l3.9-6.5h4.9l-6.5,10l7.2,11.2h-4.8l-4.7-7.7l-4.9,7.7h-4.9L186.7,68.1z"/><path fill="#FFFFFF" d="M208.3,79.3h-4.1V61.8h-4.7v-3.6H213v3.6h-4.7V79.3z"/><path fill="#FFFFFF" d="M227.8,61.8h-7.6v4.7h7.3V70h-7.3v5.7h7.6v3.6h-11.7V58.2h11.7V61.8z"/><path fill="#FFFFFF" d="M232.3,79.3V57.7h2.8L248,72.4V58.2h4.1v21.5h-2.8L236.4,65v14.3H232.3z"/><path fill="#FFFFFF" d="M269.9,60.2l-2.1,2.8c-1-1.1-2.2-1.7-3.4-1.7c-0.8,0-1.5,0.2-2.1,0.7c-0.6,0.5-0.9,1-0.9,1.7 c0,0.6,0.2,1,0.7,1.4c0.4,0.4,1.3,0.8,2.5,1.2c2.3,0.8,3.8,1.7,4.6,2.5c1,1,1.5,2.4,1.5,4.1c0,2.1-0.7,3.7-2.1,5 c-1.4,1.3-3.1,1.9-5.3,1.9c-3,0-5.4-1.3-7.3-4l2.7-2.6c1,1.9,2.5,2.8,4.4,2.8c1,0,1.7-0.3,2.4-0.8c0.6-0.6,0.9-1.3,0.9-2.1 c0-0.8-0.3-1.4-0.8-1.8c-0.3-0.2-0.7-0.4-1.2-0.7c-0.6-0.3-1.3-0.6-2.1-0.9c-1.9-0.7-3.3-1.5-4-2.3c-0.8-0.9-1.2-2-1.2-3.4 c0-1.8,0.6-3.2,1.9-4.4c1.2-1.2,2.8-1.8,4.7-1.8C266,57.8,268.1,58.6,269.9,60.2z"/><path fill="#FFFFFF" d="M278.8,58.2v21.1h-4.1V58.2H278.8z"/><path fill="#FFFFFF" d="M283.1,68.6c0-3,1.1-5.6,3.3-7.7c2.2-2.1,4.9-3.2,8-3.2c3.2,0,5.8,1.1,8,3.2c2.2,2.1,3.3,4.7,3.3,7.8 c0,3.1-1.1,5.7-3.3,7.9c-2.2,2.1-4.9,3.2-8.1,3.2c-2.8,0-5.3-0.9-7.4-2.7C284.3,74.9,283.1,72.1,283.1,68.6z M287.3,68.6 c0,2.1,0.7,3.8,2.1,5.2c1.4,1.4,3,2.1,5,2.1c1.9,0,3.6-0.7,5-2.1c1.4-1.4,2.1-3.2,2.1-5.2c0-2-0.7-3.7-2.1-5.1 c-1.4-1.4-3-2.1-5-2.1c-1.9,0-3.6,0.7-5,2.1C288,65,287.3,66.7,287.3,68.6z"/><path fill="#FFFFFF" d="M309.9,79.3V57.7h2.8l12.9,14.7V58.2h4.1v21.5h-2.8L314,65v14.3H309.9z"/></g><g><path fill="#FFFFFF" d="M178.8,48.6v-8.8l-4.2,7.7l-4.2-7.7v8.8l1.3,0.9v2.6h-6.7v-2.6l1.3-0.9V36.1l-1.3-0.9v-2.6h5.8l3.7,6.9 l3.9-6.9h5.7v2.6l-1.3,0.9v12.5l1.3,0.9v2.6h-6.7v-2.6L178.8,48.6z"/><path fill="#FFFFFF" d="M194.4,52.1h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#FFFFFF" d="M210.1,35.5l0.3,0.3V38H206v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8L202,40h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L210.1,35.5z"/><path fill="#FFFFFF" d="M226,35.5l0.3,0.3V38h-4.4v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8l0.1,0.1h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L226,35.5z"/><path fill="#FFFFFF" d="M236.5,52.1h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#FFFFFF" d="M252.2,35.5l0.3,0.3V38H248v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8L244,40h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L252.2,35.5z"/><path fill="#FFFFFF" d="M268.1,35.5l0.3,0.3V38H264v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8L260,40h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L268.1,35.5z"/><path fill="#FFFFFF" d="M278.6,52.1h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#FFFFFF" d="M295.4,35.6l0.3,0.3v6.3l-2.7,2.9l-0.3,0.3h-5.3v3.2l1.5,0.9v2.6h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h11.1 L295.4,35.6z M291.3,37.1l-0.5-0.5h-3.4v4.8h3.4l0.5-0.5V37.1z"/><path fill="#FFFFFF" d="M312,35.6l0.3,0.3v6.3l-2.7,2.9l-0.3,0.3H304v3.2l1.5,0.9v2.6h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h11.1 L312,35.6z M307.9,37.1l-0.5-0.5H304v4.8h3.4l0.5-0.5V37.1z"/><path fill="#FFFFFF" d="M321.9,52.1h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#FFFFFF" d="M348,35.5l0.3,0.3V38h-4.4v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8l0.1,0.1h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L348,35.5z"/><path fill="#FFFFFF" d="M350.4,32.6h15.7v6.2h-3.6v-2.1h-2v12l1.4,0.9v2.6h-7.1v-2.6l1.4-0.9v-12h-2v2.1h-3.6V32.6z"/><path fill="#FFFFFF" d="M381.4,49.6v2.6h-6.8v-2.6l1.3-0.8l-0.8-2.7h-4.5l-0.9,2.7l1.3,0.8v2.6h-6.5v-2.5l1.3-1l4.7-15.3l0.2-0.7h4.5 l4.7,15.9L381.4,49.6z M374,42.4l-1.1-3.9l-1.2,3.9H374z"/><path fill="#FFFFFF" d="M379.7,32.6h15.7v6.2h-3.6v-2.1h-2v12l1.4,0.9v2.6H384v-2.6l1.4-0.9v-12h-2v2.1h-3.6V32.6z"/><path fill="#FFFFFF" d="M397.6,32.6h14.2v6.1h-4.4v-2.1h-4.1v3.7h4.7v3.7h-4.7v4.1h4.1v-1.4h4.4v5.4h-14.2v-2.6l1.4-0.9V36.2l-1.4-0.9 V32.6z"/><path fill="#FFFFFF" d="M434.1,32.6h6.9v2.7l-1.6,0.9v12.7l-2.7,2.9l-0.3,0.3h-6.9l-3-3.2V36.2l-1.4-0.9v-2.6h6.6v2.5L431,36v11.6 l0.5,0.5h3l0.5-0.5V36l-0.9-0.9V32.6z"/><path fill="#FFFFFF" d="M450.7,49.5v2.6h-6.6v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h5.9l5.7,10.8v-7.3l-1.2-0.9v-2.6h6.4v2.6l-1.3,0.9v16 h-4.1l-6.2-11.9v8.3L450.7,49.5z"/><path fill="#FFFFFF" d="M471.2,52.1H464v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#FFFFFF" d="M483.3,32.6h7.4v2.7l-2,1L484,52.1h-3.8l-4.9-15.9l-1.8-1v-2.7h7.1v2.6l-1.2,0.8l2.6,8.5l2.6-8.5l-1.3-0.8 V32.6z"/><path fill="#FFFFFF" d="M492.8,32.6h14.2v6.1h-4.4v-2.1h-4.1v3.7h4.7v3.7h-4.7v4.1h4.1v-1.4h4.4v5.4h-14.2v-2.6l1.4-0.9V36.2l-1.4-0.9 V32.6z"/><path fill="#FFFFFF" d="M525.7,49.6v2.5h-6.5v-2.6l0.9-0.7l-2-4.5h-2.2v4.3l1,0.9v2.5h-6.7v-2.6l1.3-0.9V36.1l-1.3-0.9v-2.6h11l3,3.2 v5.4l-2,2.1l2.3,5.2L525.7,49.6z M519.8,37.1l-0.6-0.5h-3.3v3.8h3.2l0.6-0.7V37.1z"/><path fill="#FFFFFF" d="M540.8,35.5l0.3,0.3V38h-4.4v-0.9l-0.5-0.5h-3l-0.5,0.5v2.8l0.1,0.1h6.1l2.1,2.2l0.3,0.3v6.3l-3,3.3h-6.9 l-2.7-3.1l-0.2-0.3v-2.7h4.4v1.5l0.6,0.7h2.9l0.6-0.7v-3.8l-0.1-0.1h-6.2l-2.2-2.6v-5.3l2.6-2.9l0.3-0.3h7L540.8,35.5z"/><path fill="#FFFFFF" d="M551.3,52.1h-7.2v-2.6l1.4-0.9V36.2l-1.4-0.9v-2.6h7.2v2.6l-1.4,0.9v12.5l1.4,0.9V52.1z"/><path fill="#FFFFFF" d="M553.5,32.6h15.7v6.2h-3.6v-2.1h-2v12l1.4,0.9v2.6h-7.1v-2.6l1.4-0.9v-12h-2v2.1h-3.6V32.6z"/><path fill="#FFFFFF" d="M580.4,32.6h6.4v2.5l-1.3,1.1l-4.3,8.5v3.9l1.4,0.9v2.6h-7.1v-2.6l1.3-0.9v-3.9l-4.3-8.5l-1.2-1.1v-2.5h6.3 v2.5l-0.8,0.7l2.2,4.2l2.1-4.2l-0.8-0.7V32.6z"/></g><g><polyline fill="#FFFFFF" points="144.4,17.7 144.4,98.6 147.1,98.6 147.1,17.7 "/></g><g><path fill="#FFFFFF" d="M593.8,45.3v1.1h-2.2v5.7h-1.4v-5.7h-2.2v-1.1H593.8z M601.1,52.1l-0.3-4c0-0.5,0-1.2,0-1.9h-0.1 c-0.2,0.6-0.4,1.4-0.6,2L599,52h-1.4l-1.2-3.9c-0.1-0.5-0.3-1.3-0.5-1.9h-0.1c0,0.6,0,1.3-0.1,1.9l-0.2,4h-1.3l0.5-6.8h2l1.2,3.3 c0.1,0.5,0.3,1,0.5,1.7h0c0.2-0.6,0.3-1.2,0.5-1.7l1.2-3.4h2l0.5,6.8H601.1z"/></g></svg></a>
+      <p class="note">Josh Maples, Department of Agricultural Economics, MSU Extension.
+        <a href="mailto:josh.maples@msstate.edu">josh.maples@msstate.edu</a>. <span id="foot-gen"></span></p>
+      <!-- MSU's full nondiscrimination statement, word for word from extension.msstate.edu/about-extension/
+           extension-statements-disclaimer (revised March 2025; as on the cattle page, checked 11/4/2026) -->
+      <p class="note">Mississippi State University is an equal opportunity institution. Discrimination is prohibited in
+        university employment, programs, or activities based on race, color, ethnicity, sex, pregnancy, religion, national
+        origin, disability, age, sexual orientation, genetic information, status as a U.S. veteran, or any other status to
+        the extent protected by applicable law. Questions about equal opportunity programs or compliance should be directed
+        to the <a href="https://www.civilrights.msstate.edu/">Office of Civil Rights Compliance</a>, 231 Famous Maroon Band
+        Street, P.O. 6044, Mississippi State, MS 39762.</p>
+      <p class="note">Visits to this page are counted with GoatCounter, without cookies or any personal data.</p>
+      <p class="note">Copyright <span id="foot-year"></span> by Mississippi State University. All rights reserved.
+        <a href="https://www.msstate.edu">www.msstate.edu</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  "use strict";
+  const $ = (s, root = document) => root.querySelector(s);
+  const NS = "http://www.w3.org/2000/svg";
+  const MON = ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
+  const MON3 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const MON_FULL = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const DOW = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const SPECIES = [{ v: "goats", t: "Goats" }, { v: "sheep", t: "Sheep & lambs" }];
+  const FIRST = "ms";             // listed first and opened first, as on the cattle page
+  const FEW = 20;                 // under 20 head: a thin sample, as `ask` marks it
+  const STALE_DAYS = 2;           // builds run every morning: two missed mornings show the banner
+  // a ?state= or ?species= link opens that view on This week, not on what this viewer last picked
+  let LINKED = false;
+  try { const q = new URLSearchParams(location.search); LINKED = !!(q.get("state") || q.get("species")); } catch (e) { /* no query */ }
+  const store = {
+    get(k) { try { return localStorage.getItem("sgp." + k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem("sgp." + k, v); } catch (e) { /* private window */ } }
+  };
+  const S = { sp: "goats", tab: "week", market: "state", week: "latest",
+              wcls: null, wgrade: "1", tcls: null, tgrade: "1", tsid: null, scls: null, sgrade: "1", ssid: null, hol: null, nat: "slaughter" };
+  let D = null;                   // the state's file for the species on screen
+  let LAMB = null, LAMB_ERR = false;
+  const fewTag = () => el("span", { class: "few", text: "Few sales" });
+  const fewLegend = () => el("li", {}, [el("span", { class: "fewkey" }), el("span", { text: `Fewer than ${FEW} head` })]);
+
+  // ---------- formatting ----------
+  const fmt$ = (v, cents = true) => v == null ? "–" : (v < 0 ? "−" : "") +
+    "$" + Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: cents ? 2 : 0 });
+  const pctS = v => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(1) + "%";
+  const today = () => { const t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate()); };
+  const fmtN = v => v == null ? "–" : v.toLocaleString("en-US");
+  const iso = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const day = (s, year) => { const d = iso(s); return `${MON[d.getMonth()]} ${d.getDate()}` + (year ? `, ${d.getFullYear()}` : ""); };
+  const wday = (s, year) => `${DOW[iso(s).getDay()]}, ${day(s, year)}`.replace(/ /g, " ");
+  const span = (a, b) => { const x = iso(a), y = iso(b);
+    return x.getMonth() === y.getMonth() ? `${MON[x.getMonth()]} ${x.getDate()}-${y.getDate()}` : `${day(a)}-${day(b)}`; };
+  const el = (tag, attrs = {}, kids = []) => {
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (k === "text") e.textContent = v; else if (k === "html") e.innerHTML = v; else e.setAttribute(k, v);
+    }
+    for (const k of [].concat(kids)) if (k != null) e.append(k);
+    return e;
+  };
+  const perUnit = () => D.meta.unit === "head" ? "$/head" : "$/cwt";
+  const unitWords = () => D.meta.unit === "head" ? "dollars per head" : "dollars per hundredweight (cwt)";
+  const market = () => D.markets.find(m => m.id === S.market) || D.markets[0];
+  const isState = () => S.market === "state";
+  const stName = () => D.meta.state;
+  const nameOf = m => (m.label || m.name).replace(/ \((Mon|Tue|Wed|Thu|Fri|Sat|Sun)\)$/, "");
+  const cls = id => D.classes.find(c => c.id === id);
+  const ser = sid => D.series[sid] || null;
+  // a series' plain name: "Selection 1 slaughter kids, 50-60 lb", "Hair lambs, 60-70 lb", "Wooled ewes, Good"
+  const serName = sid => { const s = ser(sid), c = cls(s.cls); if (c.rows === "item") return s.label.replace(", Sel. ", ", Selection ");
+    const g = s.grade ? `Selection ${s.grade} ` : "";
+    return `${g}${g ? c.t.toLowerCase() : c.t}, ${s.label} lb`; };
+  const gradeOf = c => c.grades ? c.grades : null;
+
+  // ---------- the This week tab's week (statewide only): the latest sale week or the one before ----------
+  const hasPrev = () => isState() && !!(D.prev && D.prev.state);
+  const prevWeek = () => S.week === "prev" && hasPrev();
+  const wk = () => prevWeek() ? D.prev.state.report : D.report[S.market];
+  const underWay = r => { const t = today(); return !!(r && r.week) && iso(r.week[0]) <= t && t <= iso(r.week[1]); };
+
+  // ---------- small controls ----------
+  const refocus = (host, t) => { const b = [...host.querySelectorAll("button")].find(x => x.textContent === t); if (b) b.focus(); };
+  function seg(host, opts, get, set) {
+    host.replaceChildren(...opts.map(o => {
+      const b = el("button", { type: "button", "aria-pressed": String(get() === o.v), text: o.t });
+      b.addEventListener("click", () => { set(o.v); render(); refocus(host, o.t); });
+      return b;
+    }));
+  }
+  const chips = seg;
+  // the class and grade switches every tab shares: pick a class (and grade) that the tab has series for
+  function classPick(clsHost, gradeHost, have, ck, gk) {
+    const classes = D.classes.filter(c => have.some(sid => ser(sid) && ser(sid).cls === c.id));
+    if (!classes.some(c => c.id === S[ck])) S[ck] = classes.length ? classes[0].id : null;
+    seg(clsHost, classes.map(c => ({ v: c.id, t: c.t })), () => S[ck], v => S[ck] = v);
+    const c = S[ck] && cls(S[ck]), gs = c && gradeOf(c) ? c.grades.filter(([g]) => have.some(sid => ser(sid).cls === c.id && ser(sid).grade === g)) : [];
+    if (gs.length && !gs.some(([g]) => g === S[gk])) S[gk] = gs[0][0];
+    seg(gradeHost, gs.length > 1 ? gs.map(([v, t]) => ({ v, t })) : [], () => S[gk], v => S[gk] = v);
+    return have.filter(sid => ser(sid).cls === S[ck] && (!gs.length || ser(sid).grade === S[gk]));
+  }
+
+  // ---------- SVG chart kit (the cattle page's) ----------
+  function svgEl(tag, attrs = {}) { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); return e; }
+  function niceTicks(lo, hi, n = 5) {
+    const raw = (hi - lo) / n, p = Math.pow(10, Math.floor(Math.log10(raw)));
+    const step = [1, 2, 2.5, 5, 10].map(m => m * p).find(s => s >= raw) || p * 10;
+    const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(6));
+    return { ticks: out, step };
+  }
+  // the charts work from the keyboard (WCAG 2.1.1): tab to a chart, then the arrow keys, Home and End
+  function keyNav(node, n, at, show, hide) {
+    node.setAttribute("tabindex", "0");
+    node.addEventListener("focus", () => { let kb = true; try { kb = node.matches(":focus-visible"); } catch (e) { /* old browser */ } if (kb) show(at(), true); });
+    node.addEventListener("blur", hide);
+    node.addEventListener("keydown", ev => {
+      const i = { ArrowLeft: at() - 1, ArrowRight: at() + 1, Home: 0, End: n - 1 }[ev.key];
+      if (i == null) return;
+      ev.preventDefault(); show(Math.max(0, Math.min(n - 1, i)), true);
+    });
+  }
+  // the chart's values as a table for screen readers (WCAG 1.1.1)
+  const srTable = (label, head, rows) => el("div", { class: "sr-only" }, el("table", {}, [el("caption", { text: label }),
+    el("thead", {}, el("tr", {}, head.map(h => el("th", { scope: "col", text: h })))),
+    el("tbody", {}, rows.map(([r, ...cells]) => el("tr", {}, [el("th", { scope: "row", text: r }), ...cells.map(v => el("td", { text: v }))])))]));
+  const kbox = svg => { const b = svgEl("rect", { class: "kbox", visibility: "hidden" }); svg.append(b);
+    return { at: (x, y, w, h) => { for (const [k, v] of Object.entries({ x, y, width: w, height: h })) b.setAttribute(k, v); b.setAttribute("visibility", "visible"); },
+             off: () => b.setAttribute("visibility", "hidden") }; };
+
+  // series: [{cls:1|2|3, dash, width, pts:[{x,y,head}], end, dot, name}]
+  function lineChart(host, cfg) {
+    const W = Math.max(280, host.clientWidth || 600), small = W < 520;
+    const H = cfg.height || (small ? 290 : 320);
+    const m = { t: 12, r: cfg.endLabels ? (small ? 74 : 104) : 14, b: 30, l: small ? 46 : 54 };
+    const all = cfg.series.flatMap(s => s.pts);
+    if (!all.length) { host.replaceChildren(el("p", { class: "none", text: cfg.empty || "No sales to chart." })); return 0; }
+    let ylo = Math.min(...all.map(p => p.y)), yhi = Math.max(...all.map(p => p.y));
+    const pad = (yhi - ylo) * 0.08 || 10; ylo -= pad; yhi += pad;
+    const { ticks } = niceTicks(ylo, yhi, small ? 4 : 5);
+    ylo = Math.min(ylo, ticks[0]); yhi = Math.max(yhi, ticks[ticks.length - 1]);
+    const X = v => m.l + (v - cfg.x.min) / (cfg.x.max - cfg.x.min) * (W - m.l - m.r);
+    const Y = v => m.t + (1 - (v - ylo) / (yhi - ylo)) * (H - m.t - m.b);
+    const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, height: H, role: "img", "aria-label": cfg.aria || "" });
+    svg.append(svgEl("path", { class: "axis", d: `M${m.l},${m.t} V${H - m.b} H${W - m.r}` }));
+    for (const t of ticks) {
+      const y = Y(t);
+      svg.append(svgEl("path", { class: "axis", d: `M${m.l - 4},${y} H${m.l}` }));
+      const tx = svgEl("text", { x: m.l - 7, y: y + 4, "text-anchor": "end" }); tx.textContent = cfg.yfmt(t); svg.append(tx);
+    }
+    for (const t of cfg.x.ticks) {
+      const x = X(t.v);
+      svg.append(svgEl("path", { class: "axis", d: `M${x},${H - m.b} V${H - m.b + 4}` }));
+      const tx = svgEl("text", { x, y: H - m.b + 18, "text-anchor": "middle" }); tx.textContent = t.t; svg.append(tx);
+    }
+    const ends = []; let thin = 0;
+    [...cfg.series].reverse().forEach(s => {
+      if (!s.pts.length) return;
+      let d = "", prev = null;
+      for (const p of s.pts) {
+        const brk = prev == null || (cfg.gap && p.x - prev.x > cfg.gap);
+        d += (brk ? "M" : "L") + X(p.x).toFixed(1) + "," + Y(p.y).toFixed(1);
+        prev = p;
+      }
+      svg.append(svgEl("path", { d, class: "s" + s.cls, fill: "none", "stroke-width": s.width || 2,
+        "stroke-linejoin": "round", "stroke-linecap": "round", ...(s.dash ? { "stroke-dasharray": s.dash } : {}) }));
+      for (const p of s.pts) if (s.dots) svg.append(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: small ? 3 : 3.5, class: "f" + s.cls }));
+      // a lone point between gaps would be invisible as a line: draw it as a dot
+      s.pts.forEach((p, i) => { const a = s.pts[i - 1], b = s.pts[i + 1];
+        if (!s.dots && cfg.gap && (!a || p.x - a.x > cfg.gap) && (!b || b.x - p.x > cfg.gap))
+          svg.append(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: 2.6, class: "f" + s.cls })); });
+      for (const p of s.pts) if (p.head != null && p.head < FEW) { svg.append(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: 5, class: "fewpt" })); thin++; }
+      const last = s.pts[s.pts.length - 1];
+      if (s.dot) svg.append(svgEl("circle", { cx: X(last.x), cy: Y(last.y), r: 5, class: "f" + s.cls, stroke: "var(--surface)", "stroke-width": 2 }));
+      if (cfg.endLabels && s.end) {
+        const lp = s.labelAt != null ? s.pts.reduce((b, p) => Math.abs(p.x - s.labelAt) < Math.abs(b.x - s.labelAt) ? p : b, s.pts[0]) : last;
+        ends.push({ x: X(lp.x), y: Y(lp.y), t: s.end, v: cfg.yfmt(lp.y, true) });
+      }
+    });
+    ends.sort((a, b) => a.y - b.y);
+    for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 30) ends[i].y = ends[i - 1].y + 30;
+    const over = ends.length ? ends[ends.length - 1].y - (H - m.b) : 0;
+    if (over > 0) ends.forEach(e => e.y -= over);
+    for (const e of ends) {
+      const lx = W - m.r + 8;
+      const t1 = svgEl("text", { x: lx, y: e.y - 2, class: "endlab" }); t1.textContent = e.t;
+      const t2 = svgEl("text", { x: lx, y: e.y + 13 }); t2.textContent = e.v;
+      svg.append(t1, t2);
+    }
+    const xs = [...new Set(all.map(p => p.x))].sort((a, b) => a - b);
+    const cross = svgEl("path", { class: "cross", d: "", visibility: "hidden" });
+    const hit = svgEl("rect", { x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, fill: "transparent" });
+    svg.append(cross, hit);
+    const tip = el("div", { class: "tip", hidden: "", "aria-live": "polite" });
+    const p0 = cfg.series[0] && cfg.series[0].pts.length ? cfg.series[0].pts[cfg.series[0].pts.length - 1].x : null;
+    let cur = p0 != null ? xs.indexOf(p0) : xs.length - 1;
+    const showX = best => {
+      const r = svg.getBoundingClientRect();
+      cur = xs.indexOf(best);
+      const rows = cfg.series.map(s => ({ s, p: s.pts.find(p => p.x === best) })).filter(o => o.p);
+      if (!rows.length) return;
+      cross.setAttribute("d", `M${X(best)},${m.t} V${H - m.b}`); cross.setAttribute("visibility", "visible");
+      tip.replaceChildren(el("b", { text: cfg.xlab(best) }), ...rows.map(({ s, p }) => el("div", { class: "row" }, [
+        el("span", { class: `key k${s.cls}${s.dash ? " dash" : ""}` }),
+        el("span", { text: `${s.name}: ${cfg.yfmt(p.y, true)}${p.head != null ? ` · ${fmtN(p.head)} head` : ""}${p.head != null && p.head < FEW ? " ⚠ few sales" : ""}` })])));
+      tip.hidden = false;
+      const tw = tip.offsetWidth, cx = X(best) * r.width / W;
+      tip.style.left = Math.max(0, Math.min(r.width - tw, cx + 12 > r.width - tw ? cx - tw - 12 : cx + 12)) + "px";
+      tip.style.top = "8px";
+    };
+    const move = ev => {
+      const r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) * W / r.width;
+      let best = xs[0];
+      for (const x of xs) if (Math.abs(X(x) - px) < Math.abs(X(best) - px)) best = x;
+      showX(best);
+    };
+    const leave = () => { tip.hidden = true; cross.setAttribute("visibility", "hidden"); };
+    hit.addEventListener("pointermove", move); hit.addEventListener("pointerdown", move);
+    hit.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") leave(); });
+    keyNav(svg, xs.length, () => cur, i => showX(xs[i]), leave);
+    const cell = (s, x) => { const p = s.pts.find(q => q.x === x); return p ? `${cfg.yfmt(p.y, true)}${p.head != null ? ` (${fmtN(p.head)} head${p.head < FEW ? ", few sales" : ""})` : ""}` : "–"; };
+    host.replaceChildren(svg, tip, srTable(cfg.aria || "Chart", [cfg.xname || "", ...cfg.series.map(s => s.name)],
+      xs.map(x => [cfg.xlab(x), ...cfg.series.map(s => cell(s, x))])));
+    return thin;
+  }
+
+  // seasonal index bars around 100
+  function monthBars(host, rows, label) {
+    const W = Math.max(280, host.clientWidth || 600), small = W < 520, H = small ? 250 : 300;
+    const m = { t: 14, r: 10, b: 30, l: small ? 40 : 46 };
+    const vals = rows.flatMap(r => [r.low, r.high, r.index]);
+    let lo = Math.min(90, ...vals), hi = Math.max(110, ...vals);
+    const { ticks } = niceTicks(lo, hi, 4); lo = Math.min(lo, ticks[0]); hi = Math.max(hi, ticks[ticks.length - 1]);
+    const bw = (W - m.l - m.r) / 12;
+    const Y = v => m.t + (1 - (v - lo) / (hi - lo)) * (H - m.t - m.b);
+    const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, height: H, role: "img", "aria-label": label });
+    svg.append(svgEl("path", { class: "axis", d: `M${m.l},${m.t} V${H - m.b}` }));
+    for (const t of ticks) {
+      const tx = svgEl("text", { x: m.l - 7, y: Y(t) + 4, "text-anchor": "end" }); tx.textContent = t === 100 ? "0%" : (t > 100 ? "+" : "−") + Math.abs(t - 100) + "%"; svg.append(tx);
+      svg.append(svgEl("path", { class: "axis", d: `M${m.l - 4},${Y(t)} H${m.l}` }));
+    }
+    const tip = el("div", { class: "tip", hidden: "", "aria-live": "polite" });
+    const shows = []; let cur = new Date().getMonth();
+    const rg = v => { const d = Math.round(v - 100); return `${d >= 0 ? "+" : "−"}${Math.abs(d)}%`; };
+    rows.forEach((r, i) => {
+      const x = m.l + i * bw, w = bw * 0.62, cx = x + bw / 2;
+      const y0 = Y(100), y1 = Y(r.index);
+      svg.append(svgEl("rect", { x: cx - w / 2, y: Math.min(y0, y1), width: w, height: Math.max(1.5, Math.abs(y1 - y0)),
+        rx: 3, class: r.index >= 100 ? "fpos" : "fneg" }));
+      svg.append(svgEl("path", { class: "s2", d: `M${cx},${Y(r.high)} V${Y(r.low)}`, "stroke-width": 1.2, opacity: .55 }));
+      const tx = svgEl("text", { x: cx, y: H - m.b + 18, "text-anchor": "middle" });
+      tx.textContent = small ? (i % 2 ? "" : MON3[i]) : MON3[i]; svg.append(tx);
+      const hit = svgEl("rect", { x, y: m.t, width: bw, height: H - m.t - m.b, fill: "transparent" });
+      const show = () => {
+        tip.replaceChildren(el("b", { text: MON_FULL[i] }),
+          el("div", { text: `${r.index >= 100 ? "+" : "−"}${Math.abs(r.index - 100).toFixed(1)}% vs. a typical month` }),
+          el("div", { text: `Range across years: ${rg(r.low)} to ${rg(r.high)}` }),
+          el("div", { text: `${r.years} of the years had sales` }));
+        tip.hidden = false;
+        const rr = svg.getBoundingClientRect(), px = cx * rr.width / W, tw = tip.offsetWidth;
+        tip.style.left = Math.max(0, Math.min(rr.width - tw, px - tw / 2)) + "px"; tip.style.top = "6px";
+      };
+      shows.push(show);
+      hit.addEventListener("pointerenter", show); hit.addEventListener("pointerdown", show);
+      hit.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") tip.hidden = true; });
+      svg.append(hit);
+    });
+    svg.append(svgEl("path", { class: "ref", d: `M${m.l},${Y(100)} H${W - m.r}` }));
+    const box = kbox(svg);
+    keyNav(svg, rows.length, () => cur, i => { cur = i; shows[i](); box.at(m.l + i * bw + 1, m.t, bw - 2, H - m.t - m.b); },
+      () => { tip.hidden = true; box.off(); });
+    const sg = v => `${v >= 100 ? "+" : "−"}${Math.abs(v - 100).toFixed(1)}%`;
+    host.replaceChildren(svg, tip, srTable(label, ["Month", "vs. a typical month", "Range across years"],
+      rows.map((r, i) => [MON_FULL[i], sg(r.index), `${rg(r.low)} to ${rg(r.high)}`])));
+  }
+
+  // ---------- head count strip, dates, footer ----------
+  function renderHead() {
+    const upd = (D.meta.generated || "").slice(0, 10);
+    $("#asof").textContent = `${/^\d{4}-\d\d-\d\d$/.test(upd) ? `Updated ${wday(upd)}. ` : ""}Latest sales: ${wday(D.meta.through)}.`;
+    const age = /^\d{4}-\d\d-\d\d$/.test(upd) ? Math.round((today() - new Date(upd + "T00:00")) / 864e5) : 0;
+    $("#stale-row").hidden = age <= STALE_DAYS;
+    if (age > STALE_DAYS) $("#stale").textContent = `This page last updated ${wday(upd, true)}, ${age} days ago, with sales through ` +
+      `${wday(D.meta.through, true)}. It normally updates every morning, so prices may be out of date.`;
+    // how the state's prices read: by the head or per cwt (the page never shows a by-the-head market's $/cwt)
+    $("#unit-band").hidden = D.meta.unit !== "head";
+    if (D.meta.unit === "head") $("#unit-band-p").textContent = `Most ${stName()} ${S.sp === "goats" ? "goats" : "sheep and lambs"} sell by the head, ` +
+      "often on estimated weights, so prices here are in dollars per head. Compare them with per-hundredweight markets by weight, not side by side.";
+    const r = wk(), mk = market(), y = D.receipts_ytd[S.market];
+    const what = S.sp === "goats" ? "Goats" : "Sheep and lambs";
+    const lead = isState()
+      ? `${what} sold, week of ${span(r.week[0], r.week[1])} (${r.reports} auction${r.reports === 1 ? "" : "s"} reported${underWay(r) ? " so far" : ""})`
+      : `${what} sold at ${nameOf(mk)} on ${wday(r.sale)}`;
+    const item = (n, label, big) => el("span", {}, [el("span", { style: "white-space:nowrap" }, [el("b", { class: big ? "big" : "", text: fmtN(n) }), " " + label])]);
+    const sameN = n => isState() && n < r.reports ? ` (${n} of these ${r.reports} auctions)` : "";
+    $("#tally").replaceChildren(el("div", { class: "lead", text: lead }),
+      el("div", { class: "row" }, [item(r.receipts.week, `head ${isState() ? (underWay(r) ? "this week" : "that week") : "this sale"}`, true), " · ",
+        item(r.receipts.prior, (isState() ? "at each auction's previous sale" : "previous sale") + sameN(r.sold.prior)), " · ",
+        item(r.receipts.year_ago, "a year ago" + sameN(r.sold.year_ago))]));
+    const g = D.meta.generated || "", bt = new Date(g), okB = !isNaN(bt), ct = o => bt.toLocaleString("en-US", { timeZone: "America/Chicago", ...o });
+    const hm = okB ? ct({ hour: "numeric", minute: "2-digit" }).replace(/\s?([AP])M$/, (_, x) => ` ${x.toLowerCase()}.m.`) : "";
+    const bday = okB ? bt.toLocaleDateString("en-CA", { timeZone: "America/Chicago" }) : g.slice(0, 10);
+    $("#foot-gen").textContent = `Sales through ${wday(D.meta.through, true)}. Page ${D.meta.build ? `version ${D.meta.build}, ` : ""}built ` +
+      `${/^\d{4}-\d\d-\d\d$/.test(bday) ? wday(bday, true) : g}${hm ? `, ${hm} CT` : ""}. Updates every morning as USDA posts new reports.`;
+    $("#foot-year").textContent = okB ? ct({ year: "numeric" }) : g.slice(0, 4);
+    $("#foot-unit").textContent = `Each state is shown the way most of its head sell: per hundredweight (cwt) or by the head. ${stName()} ` +
+      `${S.sp === "goats" ? "goats" : "sheep and lambs"} are shown in ${unitWords()}. Prices are averaged by head; a lot sold the other way ` +
+      "is converted at its own average weight.";
+  }
+
+  function changeCell(v, pct, heads) {
+    if (v == null) return el("td", { class: "none", text: "–" });
+    const c = v > 0 ? "up" : v < 0 ? "down" : "", arrow = v > 0 ? "▲ " : v < 0 ? "▼ " : "";
+    const p = pct != null ? el("span", { class: "pct", text: ` (${pctS(pct)})` }) : null;
+    // a change resting on a thin sale (either side) is shown in gray, without an arrow
+    if (heads && Math.min(...heads) < FEW) return el("td", { class: "chg muted", title: `Rests on ${heads[0]} head vs. ${heads[1]} head` },
+      [document.createTextNode((v > 0 ? "+" : v < 0 ? "−" : "") + fmt$(Math.abs(v))), p]);
+    return el("td", { class: `chg ${c}` }, [document.createTextNode(arrow + fmt$(Math.abs(v))), p]);
+  }
+  // ---------- price range box (the cattle page's): tap or hover on a price ----------
+  const RT = el("div", { class: "rtip", hidden: "", role: "dialog", "aria-label": "Price range" });
+  let RT_BTN = null, RT_PIN = false, RT_Y = 0, RT_HIDE = null;
+  const lo$ = v => "$" + Math.floor(v).toLocaleString(), hi$ = v => "$" + Math.ceil(v).toLocaleString();
+  const span$ = ([a, b]) => Math.floor(a) === Math.ceil(b) ? lo$(a) : `${lo$(a)}-${hi$(b)}`;
+  const rangeText = r => [r.most && r.head >= FEW ? `Most sold ${span$(r.most)}` : null, r.range ? `Full range ${span$(r.range)}` : null,
+    r.wt ? `Average weight ${r.wt} lb` : null].filter(Boolean);
+  function closeRange(focusBack) {
+    clearTimeout(RT_HIDE);
+    if (!RT_BTN) return;
+    RT.hidden = true; RT_BTN.setAttribute("aria-expanded", "false");
+    const tr = RT_BTN.closest("tr"); if (tr) tr.classList.remove("rsel");
+    if (focusBack) RT_BTN.focus();
+    RT_BTN = null; RT_PIN = false;
+  }
+  function openRange(btn, r, pin, title) {
+    clearTimeout(RT_HIDE);
+    if (RT_BTN && RT_BTN !== btn) closeRange();
+    const x = el("button", { type: "button", class: "x", "aria-label": "Close", tabindex: "-1", text: "×" });
+    x.addEventListener("click", () => closeRange(true));
+    RT.replaceChildren(x, el("b", { class: "rt-h", text: title }), el("dl", {}, [
+      ...(r.most && r.head >= FEW ? [el("dt", { text: "Most sold" }), el("dd", { text: span$(r.most) })] : []),
+      el("dt", { text: "Full range" }), el("dd", { text: span$(r.range) }),
+      ...(r.wt ? [el("dt", { text: "Average weight" }), el("dd", { text: `${r.wt} lb` })] : [])]));
+    if (!RT.isConnected) document.body.append(RT);
+    RT.hidden = false; RT_BTN = btn; RT_PIN = RT_PIN || !!pin; RT_Y = window.scrollY;
+    btn.setAttribute("aria-expanded", "true");
+    const tr = btn.closest("tr"); if (tr) tr.classList.add("rsel");
+    const b = btn.getBoundingClientRect(), tw = RT.offsetWidth, th = RT.offsetHeight;
+    let left, top;
+    if (b.right + 10 + tw <= window.innerWidth - 8) { left = b.right + 10; top = b.top + b.height / 2 - th / 2; }
+    else {
+      left = Math.max(8, Math.min(window.innerWidth - tw - 8, b.left + b.width / 2 - tw / 2));
+      top = b.bottom + th + 8 > window.innerHeight && b.top - th - 8 > 0 ? b.top - th - 6 : b.bottom + 6;
+    }
+    RT.style.left = left + window.scrollX + "px"; RT.style.top = top + window.scrollY + "px";
+  }
+  function priceButton(r, title) {
+    const b = el("button", { type: "button", class: "pbtn", "aria-expanded": "false", "aria-haspopup": "dialog",
+      "aria-label": `${title}, ${fmt$(r.price)}. ${rangeText(r).join("; ")}`, text: fmt$(r.price) });
+    b.addEventListener("click", () => { if (RT_BTN === b && RT_PIN) closeRange(); else openRange(b, r, true, title); });
+    b.addEventListener("pointerenter", e => { if (e.pointerType === "mouse" && !(RT_PIN && RT_BTN !== b)) openRange(b, r, false, title); });
+    b.addEventListener("pointerleave", e => { if (e.pointerType === "mouse" && !RT_PIN) RT_HIDE = setTimeout(() => closeRange(), 200); });
+    return b;
+  }
+  RT.addEventListener("pointerenter", () => clearTimeout(RT_HIDE));
+  RT.addEventListener("pointerleave", e => { if (e.pointerType === "mouse" && !RT_PIN) RT_HIDE = setTimeout(() => closeRange(), 200); });
+  document.addEventListener("pointerdown", e => { if (RT_BTN && !RT.contains(e.target) && !RT_BTN.contains(e.target)) closeRange(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && RT_BTN) closeRange(true); });
+  window.addEventListener("scroll", () => { if (RT_BTN && Math.abs(window.scrollY - RT_Y) > 40) closeRange(); }, { passive: true });
+  window.addEventListener("resize", () => closeRange());
+
+  // ---------- This week ----------
+  function renderWeek() {
+    closeRange();
+    const r = wk(), mk = market();
+    $("#week-pick-row").hidden = !hasPrev();
+    if (hasPrev()) {
+      const L = D.report.state, P = D.prev.state.report;
+      seg($("#week-pick"), [{ v: "latest", t: `Week of ${day(L.week[0])}${underWay(L) ? " (so far)" : ""}` },
+                            { v: "prev", t: `Week of ${day(P.week[0])}` }], () => S.week, v => S.week = v);
+    }
+    // the rows this view has: a weight class lists its weight groups; an item class its lines that sold either time
+    const have = r.rows.filter(x => ser(x.id)).map(x => x.id);
+    const sids = classPick($("#week-class"), $("#week-grade"), have, "wcls", "wgrade");
+    const c = cls(S.wcls), weight = c.rows === "weight";
+    let rows = r.rows.filter(x => sids.includes(x.id));
+    if (!weight) rows = rows.filter(x => x.price != null);
+    else {          // weight groups with no sales at the light or heavy end are left off; a gap between sold groups stays
+      const i0 = rows.findIndex(x => x.price != null), i1 = rows.map(x => x.price != null).lastIndexOf(true);
+      rows = i0 < 0 ? [] : rows.slice(i0, i1 + 1);
+    }
+    const now = isState() ? (underWay(r) ? "This week so far" : `Week of ${day(r.week[0])}`) : `${day(r.sale)} sale`;
+    const anyThin = rows.some(x => (x.head > 0 && x.head < FEW) || [x.chg_head, x.chg_yr_head].some(h => h && x.price != null && Math.min(...h) < FEW));
+    const g = weight && S.wgrade && c.grades ? `, Selection ${S.wgrade}` : "";
+    const lambs = ["hair", "wool"].includes(c.id) ? ", Choice and Prime plus Choice" : "";
+    const title = r => weight ? `${r.price != null ? "" : ""}${ser(r.id).label} lb ${g ? `Selection ${S.wgrade} ` : ""}${c.t.toLowerCase()}` : serName(r.id);
+    const trs = rows.map(x => {
+      const few = x.head > 0 && x.head < FEW;
+      const first = el("td", {}, [document.createTextNode(weight ? ser(x.id).label : ser(x.id).label.replace(/, Sel\. /, ", Sel. ")),
+        el("span", { class: "headsm" + (few ? " fewhead" : ""), text: `${fmtN(x.head)} head${few ? " ⚠" : ""}` })]);
+      const head = el("td", { class: "headcol" + (few ? " fewhead" : ""), text: fmtN(x.head) + (few ? " ⚠" : "") });
+      if (x.price == null) return el("tr", {}, [first, el("td", { class: "none", style: "text-align:left", text: "No sales", colspan: "4" }), el("td", { class: "headcol", text: "0" })]);
+      return el("tr", { class: few ? "thin" : "" }, [first,
+        el("td", { class: "price" + (x.head <= 2 ? " tiny" : "") }, x.range ? priceButton(x, title(x)) : fmt$(x.price)),
+        el("td", { class: "wtcol sm-hide", text: x.wt ? `${x.wt}` : "–" }),
+        changeCell(x.chg, null, x.chg_head), changeCell(x.chg_yr, x.pct_yr, x.chg_yr_head), head]);
+    });
+    const vs = isState() ? "vs. previous sale" : "vs. previous sale";
+    $("#week-table").replaceChildren(
+      el("caption", {}, [document.createTextNode(`${c.t}${g}${lambs}, ${perUnit()}`),
+        anyThin ? el("p", { class: "legend-few", text: "⚠ Under 20 head: one or two lots can swing the price. A gray change compares with a sale of under 20 head." }) : null]),
+      el("thead", {}, el("tr", {}, [el("th", { text: weight ? "Weight (lb)" : "Class" }), el("th", { text: now }), el("th", { class: "sm-hide", text: "Avg. lb" }),
+        el("th", { text: vs }), el("th", { text: "vs. a year ago" }), el("th", { class: "headcol", text: "Head" })])),
+      el("tbody", {}, trs.length ? trs : el("tr", {}, el("td", { colspan: "6", class: "none", text: isState() ? `No ${c.t.toLowerCase()} sold ${underWay(r) ? "this week" : "that week"}.` : `No ${c.t.toLowerCase()} at this sale.` }))));
+    renderFacts(r);
+    const notes = [];
+    notes.push(isState()
+      ? `Each change compares each auction with its own previous sale and with its own sale nearest a year earlier, counting only the auctions that sold that line both times.`
+      : `"vs. previous sale" compares with ${nameOf(mk)}'s sale of ${r.prior.length ? day(r.prior[0], true) : "–"}; "a year ago" with its sale of ${r.year_ago.length ? day(r.year_ago[0], true) : "–"} (none within three weeks of a year earlier shows a dash).`);
+    notes.push("Tap or hover on a price for its range. Most sold is where the middle 80% of head sold, by each lot's average price (shown at 20 head or more); full range is the lowest to highest price reported.");
+    if (D.meta.unit === "head") notes.push("Prices are per head; weights are the reporters' estimates at most by-the-head auctions.");
+    $("#week-note").textContent = notes.join(" ");
+  }
+  function renderFacts(r) {
+    const yr = D.meta.through.slice(0, 4), y = D.receipts_ytd[S.market], lk = y.like || {};
+    const ytdP = lk.ago && lk.share >= 0.7 ? (lk.now / lk.ago - 1) * 100 : null;
+    const items = [];
+    const add = (k, v, sub) => items.push(el("div", {}, [el("dt", { text: k }), el("dd", {}, [document.createTextNode(v), sub ? el("small", { text: sub }) : null])]));
+    const what = S.sp === "goats" ? "Goats sold" : "Sheep and lambs sold";
+    add(what, `${fmtN(r.receipts.week)} head`, isState() ? `${r.reports} auction${r.reports === 1 ? "" : "s"} reported` : `Sold on ${day(r.sale, true)}`);
+    if (y && y.ytd != null) add(`Sold so far in ${yr}`, `${fmtN(y.ytd)} head`,
+      ytdP != null ? `${Math.abs(ytdP).toFixed(1)}% ${ytdP >= 0 ? "more" : "fewer"} than last year, same sale weeks` : "");
+    if (isState()) {
+      const names = Object.keys(r.sales).map(id => D.markets.find(m => m.id === id)).filter(Boolean).map(nameOf);
+      if (names.length) add(names.length === 1 ? "Auction" : "Auctions", names.join(", "), "");
+    }
+    add("Priced", D.meta.unit === "head" ? "By the head" : "Per hundredweight (cwt)", D.meta.unit === "head" ? "most head in this state sell by the head" : "");
+    const why = el("a", { href: "#about", text: "More on these numbers" });
+    why.addEventListener("click", e => { e.preventDefault(); $("#foot-how").open = true; $("#foot-how").scrollIntoView({ behavior: "smooth", block: "start" }); });
+    $("#week-facts").replaceChildren(el("h3", { text: isState() ? `About ${stName()} sales, week of ${day(r.week[0])}` : `About this sale at ${nameOf(market())}` }),
+      el("dl", {}, items), el("p", { class: "gmix" }, [document.createTextNode("Prices are from the head USDA's reporters priced. "), why]));
+  }
+
+  // ---------- Price trend ----------
+  // this year vs. last year vs. the 3 years before last, monthly on a Jan-Dec axis
+  function yearChart(pre, g, yr, aria, opts = {}) {
+    const doy = s => { const [mm, dd] = s.slice(-5).split("-").map(Number); return Math.round((Date.UTC(yr, mm - 1, dd) - Date.UTC(yr, 0, 1)) / 864e5); };
+    const P = arr => arr.map(p => ({ x: doy(p[0]), y: p[1], head: opts.noHead ? null : p[2] }));
+    const cur = P(g.cur), ago = P(g.ago), avg = P(g.avg).map(p => ({ ...p, head: null }));
+    const ticks = MON3.map((t, i) => ({ v: Math.round((Date.UTC(yr, i, 1) - Date.UTC(yr, 0, 1)) / 864e5), t }));
+    const narrow = $(`#${pre}-chart`).clientWidth < 520, base = opts.base;
+    const lastX = cur.length ? cur[cur.length - 1].x : null;
+    const series = [{ cls: 1, pts: cur, name: String(yr), end: String(yr), dot: true, width: 2.6 },
+      { cls: 3, pts: ago, name: String(yr - 1), end: String(yr - 1), width: 1.8, labelAt: lastX },
+      { cls: 2, pts: avg, name: `${base} avg.`, end: narrow ? "3-yr avg." : `${base} avg.`, dash: "6 4", width: 1.8, labelAt: lastX }].filter(s => s.pts.length);
+    $(`#${pre}-legend`).replaceChildren(...series.map(s => el("li", {}, [el("span", { class: `key k${s.cls}${s.dash ? " dash" : ""}` }), el("span", { text: s.name })])));
+    const weekly = !!opts.weekly;
+    const thin = lineChart($(`#${pre}-chart`), { series, x: { min: 0, max: 365, ticks: window.innerWidth < 520 ? ticks.filter((_, i) => i % 2 === 0) : ticks },
+      gap: weekly ? 20 : 45, endLabels: true, yfmt: (v, full) => full ? fmt$(v) : "$" + v,
+      xlab: x => { const d = new Date(Date.UTC(yr, 0, 1) + x * 864e5); return weekly ? `Week ending ${MON[d.getUTCMonth()]} ${d.getUTCDate()}` : MON_FULL[d.getUTCMonth()]; },
+      xname: weekly ? "Week" : "Month", aria });
+    if (thin) $(`#${pre}-legend`).append(fewLegend());
+    const last = cur[cur.length - 1], parts = [];
+    const when = x => { const d = new Date(Date.UTC(yr, 0, 1) + x * 864e5); return weekly ? `Week ending ${MON[d.getUTCMonth()]} ${d.getUTCDate()}` : MON_FULL[d.getUTCMonth()]; };
+    if (last) parts.push(`${when(last.x)}: ${fmt$(last.y)}`);
+    if (last && ago.length) { const a = ago.reduce((b, p) => Math.abs(p.x - last.x) < Math.abs(b.x - last.x) ? p : b, ago[0]);
+      if (Math.abs(a.x - last.x) <= (weekly ? 4 : 20)) parts.push(`same ${weekly ? "week" : "month"} last year ${fmt$(a.y)}`); }
+    $(`#${pre}-summary`).replaceChildren(...parts.flatMap((p, i) => [i ? " · " : null, el("span", { style: "white-space:nowrap", text: p })]).filter(Boolean),
+      ` (${opts.unit || perUnit()})`, ...(last && last.head != null && last.head < FEW ? [fewTag()] : []));
+  }
+  const noChart = (pre, text) => { $(`#${pre}-chart`).replaceChildren(el("p", { class: "none", text }));
+    $(`#${pre}-summary`).textContent = ""; $(`#${pre}-legend`).replaceChildren(); };
+
+  function renderTrend() {
+    const Y = D.years[S.market], mk = market(), have = Object.keys(Y.series).filter(ser);
+    if (!have.length) { for (const h of ["#trend-class", "#trend-grade", "#trend-series"]) $(h).replaceChildren();
+      $("#trend-sub").textContent = ""; noChart("trend", `No sales this year at ${isState() ? `${stName()} auctions` : nameOf(mk)}.`); renderCurve(); return; }
+    const sids = classPick($("#trend-class"), $("#trend-grade"), have, "tcls", "tgrade");
+    if (!sids.includes(S.tsid)) {        // keep the weight picked on This week where it carries over
+      const want = S.tsid && ser(S.tsid) ? ser(S.tsid).label : null;
+      S.tsid = sids.find(s => ser(s).label === want) || sids.reduce((b, s) => (Y.series[s].cur.reduce((t, p) => t + (p[2] || 0), 0) > Y.series[b].cur.reduce((t, p) => t + (p[2] || 0), 0) ? s : b), sids[0]);
+    }
+    const c = cls(S.tcls);
+    chips($("#trend-series"), sids.map(s => ({ v: s, t: c.rows === "weight" ? `${ser(s).label} lb` : ser(s).label.replace(/, Sel\. /, ", Sel. ") })), () => S.tsid, v => S.tsid = v);
+    const where = isState() ? `every ${stName()} auction` : nameOf(mk);
+    $("#trend-sub").textContent = `${serName(S.tsid)}, ${where}. Monthly average, ${perUnit()}.`;
+    yearChart("trend", Y.series[S.tsid], Y.year, `${serName(S.tsid)}: price this year, last year and the ${D.meta.base_years} average, ${isState() ? stName() : nameOf(mk)}`,
+      { base: D.meta.base_years });
+    const sp = D.season.series[S.tsid];
+    if (sp) { const b = el("button", { type: "button", class: "linkish", text: "See the usual seasonal pattern for this line" });
+      b.addEventListener("click", () => { S.scls = S.tcls; S.sgrade = S.tgrade; S.ssid = S.tsid; setTab("season"); window.scrollTo({ top: 0 }); });
+      $("#trend-season").replaceChildren(b, isState() ? "" : " (statewide)");
+    } else $("#trend-season").replaceChildren();
+    renderCurve();
+    $("#trend-note").textContent = `Each point is a month's average, by head. Single auctions and most states sell too few head in a week for a weekly line. ` +
+      `The ${D.meta.base_years} average is drawn only for months all three years had sales. Circled points rest on fewer than ${FEW} head.`;
+  }
+  // price by weight, statewide: the last 4 weeks of sales vs. the same weeks a year earlier, by USDA's weight bands
+  function renderCurve() {
+    const C = D.curve, c = S.tcls && cls(S.tcls), key = c ? `${c.id}|${c.grades ? S.tgrade : ""}` : null, g = key && C.series[key];
+    $("#curve-card").hidden = !g;
+    if (!g) return;
+    const gname = c.grades ? `Selection ${S.tgrade} ` : "";
+    $("#curve-title").textContent = `${gname}${gname ? c.t.toLowerCase() : c.t}: price by weight`;
+    $("#curve-sub").textContent = `Every ${stName()} auction, ${span(C.now[0], C.now[1])} vs. the same weeks a year earlier, ${perUnit()}. Tap a point for head counts.`;
+    $("#curve-legend").replaceChildren(el("li", {}, [el("span", { class: "key k1" }), el("span", { text: "Last 4 weeks" })]),
+      el("li", {}, [el("span", { class: "key k1 dash" }), el("span", { text: "A year earlier" })]));
+    const pts = a => a.map(p => ({ x: (p[0] + p[1]) / 2, y: p[2], head: p[3], lo: p[0], hi: p[1] }));
+    const all = [...g.now, ...g.ago], x0 = Math.min(...all.map(p => p[0])), x1 = Math.max(...all.map(p => p[1]));
+    const step = x1 - x0 > 120 ? 20 : 10, ticks = [];
+    for (let v = Math.ceil(x0 / step) * step; v <= x1; v += step) ticks.push({ v, t: String(v) });
+    const now = pts(g.now), ago = pts(g.ago), band = x => { const p = [...now, ...ago].find(q => q.x === x); return p ? `${p.lo}-${p.hi} lb` : `${x} lb`; };
+    const thin = lineChart($("#curve-chart"), {
+      series: [{ cls: 1, pts: now, name: "Last 4 weeks", dots: true, width: 2.4 }, { cls: 1, pts: ago, name: "A year earlier", dash: "6 5", width: 1.8 }],
+      x: { min: x0, max: x1, ticks: window.innerWidth < 520 ? ticks.filter((_, i) => i % 2 === 0) : ticks }, gap: 25, yfmt: (v, full) => full ? fmt$(v) : "$" + v,
+      xlab: band, xname: "Weight", aria: `${$("#curve-title").textContent}, ${stName()}, last 4 weeks and a year earlier` });
+    if (thin) $("#curve-legend").append(fewLegend());
+  }
+
+  // ---------- Seasonal & holidays ----------
+  function renderSeason() {
+    const Sx = D.season, have = Object.keys(Sx.series).filter(ser), yrs = Sx.years;
+    if (!have.length) {
+      for (const h of ["#season-class", "#season-grade", "#season-series"]) $(h).replaceChildren();
+      $("#season-sub").textContent = "";
+      $("#season-summary").textContent = "";
+      $("#season-chart").replaceChildren(el("p", { class: "none", text: `${stName()} auctions don't have enough years of sales for a seasonal pattern. A pattern needs sales in at least 3 of the 5 years ${yrs[0]}-${yrs[yrs.length - 1]} in every month.` }));
+    } else {
+      const sids = classPick($("#season-class"), $("#season-grade"), have, "scls", "sgrade");
+      if (!sids.includes(S.ssid)) { const want = S.ssid && ser(S.ssid) ? ser(S.ssid).label : null; S.ssid = sids.find(s => ser(s).label === want) || sids[Math.floor((sids.length - 1) / 2)]; }
+      const c = cls(S.scls);
+      chips($("#season-series"), sids.map(s => ({ v: s, t: c.rows === "weight" ? `${ser(s).label} lb` : ser(s).label.replace(/, Sel\. /, ", Sel. ") })), () => S.ssid, v => S.ssid = v);
+      $("#season-sub").textContent = `${serName(S.ssid)}: % above or below a typical month, ${yrs[0]}-${yrs[yrs.length - 1]}, every ${stName()} auction together.`;
+      const rows = Sx.series[S.ssid], by = [...rows].sort((a, b) => b.index - a.index);
+      const sg = v => { const x = Math.round(v - 100); return x === 0 ? "0%" : (x > 0 ? "+" : "−") + Math.abs(x) + "%"; };
+      const pair = (a, b) => [a, b].sort((p, q) => p.month - q.month).map(m => `${MON_FULL[m.month - 1]} (${sg(m.index)})`).join(" and ");
+      $("#season-summary").textContent = `Highest: ${pair(by[0], by[1])}. Lowest: ${pair(by[by.length - 1], by[by.length - 2])}.`;
+      monthBars($("#season-chart"), rows, `${serName(S.ssid)}: seasonal pattern by month, ${stName()}, ${yrs[0]}-${yrs[yrs.length - 1]}`);
+    }
+    renderHolidays();
+  }
+  const HOL_WIN = [["3-4 wk before", "3-4 weeks before"], ["1-2 wk before", "1-2 weeks before"], ["holiday wk + 1 after", "Holiday week and the week after"]];
+  function renderHolidays() {
+    const H = D.holidays, keys = Object.keys(H);
+    if (!keys.includes(S.hol)) S.hol = keys[0];
+    seg($("#hol-class"), keys.length > 1 ? keys.map(k => ({ v: k, t: cls(k) ? cls(k).t : H[k].label })) : [], () => S.hol, v => S.hol = v);
+    const h = H[S.hol];
+    $("#hol-sub").textContent = `${h.label}, every ${stName()} auction together: how far prices ran above or below their 12-month average around each holiday.`;
+    const none = !h.windows;
+    $("#hol-table").hidden = none; $("#hol-none").hidden = !none;
+    if (none) $("#hol-none").textContent = `${stName()} auctions have too few years of sales to show prices around the holidays for ${h.label.replace(/^./, x => x.toLowerCase())}.`;
+    else {
+      const pc = v => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(Math.round(v))}%`;
+      const cell = e => {
+        if (!e) return el("td", { class: "none", text: "–" });
+        const near0 = Math.abs(e.pct) < 2;            // within 2% of the year's average reads as average
+        return el("td", {}, [el("span", { class: "eff " + (near0 ? "flat" : e.pct > 0 ? "up" : "down"), text: near0 ? "About average" : pc(e.pct) }),
+          el("span", { class: "rng", text: `${near0 ? pc(e.pct) + "; " : ""}${e.years} years: ${pc(e.lo)} to ${pc(e.hi)}` })]);
+      };
+      const hs = ["Easter", "Eid al-Fitr", "Eid al-Adha", "Christmas"];
+      $("#hol-table").replaceChildren(
+        el("caption", { text: `Price vs. its 12-month average, ${h.first.slice(0, 4)}-${h.last.slice(0, 4)} (${fmtN(h.sales)} sales)` }),
+        el("thead", {}, el("tr", {}, [el("th", { text: "Holiday" }), ...HOL_WIN.map(([, t]) => el("th", { text: t }))])),
+        el("tbody", {}, hs.map(n => el("tr", {}, [el("td", { text: n }), ...HOL_WIN.map(([w]) => cell(h.windows.find(e => e.holiday === n && e.window === w)))]))));
+    }
+    const fmtD = s => wday(s, true);
+    $("#hol-next").replaceChildren(...D.next_holidays.map(n => {
+      const d = iso(n.date), a = new Date(d - 14 * 864e5), b = new Date(d - 864e5);
+      const md = x => `${MON[x.getMonth()]} ${x.getDate()}`;
+      return el("li", {}, [el("b", { text: n.holiday }), el("span", { text: fmtD(n.date) + (n.holiday === "Ramadan start" ? "" : ` · 1-2 weeks before: ${md(a)}-${md(b)}`) })]);
+    }));
+  }
+
+  // ---------- National lamb (sheep only) ----------
+  const NAT = [{ v: "slaughter", t: "Slaughter lambs", name: "Three-market auction price, slaughter lambs", unit: "$/cwt live",
+                 sub: "Wooled and shorn slaughter lambs, Choice and Prime, 100-150 lb" },
+               { v: "feeder", t: "Feeder lambs", name: "Three-market auction price, feeder lambs", unit: "$/cwt",
+                 sub: "Feeder lambs, Medium and Large 1-2, 60-90 lb" },
+               { v: "cutout", t: "Lamb cutout", name: "Lamb carcass cutout", unit: "$/cwt carcass",
+                 sub: "USDA's estimated lamb carcass cutout value, gross" }];
+  function loadLamb() {
+    if (LAMB || LAMB_ERR) return;
+    fetch("data/lamb.json", { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(j => { LAMB = j; }).catch(e => { console.error(e); LAMB_ERR = true; }).finally(() => { if (S.tab === "lamb") render(); });
+  }
+  // weekly points into this year / last year / the 3 years before last, on this year's calendar (weeks end Friday)
+  function natYears(pts, yr) {
+    const by = {}; for (const [w, v] of pts) { const y = +w.slice(0, 4); (by[y] = by[y] || []).push([w, v]); }
+    const wkOf = s => { const d = iso(s); return Math.floor((d - new Date(d.getFullYear(), 0, 1)) / (7 * 864e5)); };
+    const move = (arr, y) => (arr || []).map(([w, v]) => { const d = iso(w); return [`${yr}-${w.slice(5)}`, v, null, y, wkOf(w)]; })
+      .filter(p => !(p[0].endsWith("02-29")));
+    const base = [yr - 4, yr - 3, yr - 2], acc = {};
+    for (const y of base) for (const p of move(by[y], y)) { (acc[p[4]] = acc[p[4]] || []).push(p); }
+    const avg = Object.values(acc).filter(a => new Set(a.map(p => p[3])).size === 3)
+      .map(a => [a[a.length - 1][0], a.reduce((t, p) => t + p[1], 0) / a.length, null]).sort((a, b) => a[0] < b[0] ? -1 : 1);
+    return { cur: move(by[yr], yr), ago: move(by[yr - 1], yr), avg };
+  }
+  function renderLamb() {
+    if (!LAMB) { loadLamb();
+      $("#lamb-chart").replaceChildren(el("p", { class: "none", text: LAMB_ERR ? "The national lamb prices didn't load. Refresh the page to try again." : "Loading national lamb prices…" }));
+      return; }
+    seg($("#lamb-kind"), NAT.map(n => ({ v: n.v, t: n.t })), () => S.nat, v => S.nat = v);
+    const n = NAT.find(x => x.v === S.nat) || NAT[0], pts = LAMB[n.v], yr = +pts[pts.length - 1][0].slice(0, 4);
+    const base = `${yr - 4}-${yr - 2}`;
+    $("#lamb-sub").textContent = n.v === "cutout" ? `${n.sub}. Weekly average of daily values, ${n.unit}.`
+      : `${n.sub}, the average of ${LAMB.meta.markets}. Weekly, ${n.unit}.`;
+    yearChart("lamb", natYears(pts, yr), yr, `${n.name}: this year, last year and the ${base} average`, { base, weekly: true, noHead: true, unit: n.unit });
+    const P = LAMB.packer || [];
+    $("#packer-sub").textContent = "USDA's weekly report of lambs packers bought on the open market (negotiated), Choice and Prime, live weight, $/cwt. " +
+      `USDA publishes it only as a weekly text report, so this page has it from ${P.length ? day(P[0][0], true) : "late October 2026"} on and will chart it once a year of weeks is in.`;
+    const last = P.slice(-8).reverse();
+    $("#packer-table").replaceChildren(el("thead", {}, el("tr", {}, [el("th", { text: "Week ending" }), el("th", { text: "$/cwt live" }), el("th", { text: "Head" })])),
+      el("tbody", {}, last.length ? last.map(([d, v, h]) => el("tr", {}, [el("td", { text: day(d, true) }), el("td", { class: "price", text: fmt$(v) }), el("td", { text: fmtN(h) })]))
+        : el("tr", {}, el("td", { colspan: "3", class: "none", text: "No weeks yet." }))));
+    $("#lamb-note").textContent = `The three-market prices average the weekly price at ${LAMB.meta.markets}, each auction's head-weighted price for the week, ` +
+      `from USDA's auction reports. The cutout is USDA's estimated value of a lamb carcass from its cut prices (report LM_XL502), averaged over each week's days. ` +
+      `The ${base} average is drawn only for weeks all three years had a price. Weeks end Friday.`;
+  }
+
+  const VIEWS = { week: renderWeek, trend: renderTrend, season: renderSeason, lamb: renderLamb };
+  // tab names in the address (Data_Forecasts/ADDRESS_STANDARD.md): never rename one
+  const ALIAS = { holidays: "season", seasonal: "season", national: "lamb" };
+  const tabOf = h => VIEWS[h] ? h : ALIAS[h] || null;
+  // the address follows the visitor (?species=sheep&state=tx#trend), so a copied or shared link opens the same view
+  function writeAddr() {
+    let q; try { q = new URLSearchParams(location.search); } catch (e) { return; }
+    q.set("species", S.sp);
+    if (D) q.set("state", D.meta.id); else q.delete("state");
+    const qs = q.toString(), url = `${location.pathname}${qs ? "?" + qs : ""}#${S.tab}`;
+    try { if (location.pathname + location.search + location.hash !== url) history.replaceState(null, "", url); } catch (e) { /* sandboxed */ }
+  }
+  function render() {
+    if (!D) return;
+    renderHead();
+    seg($("#species"), SPECIES, () => S.sp, v => { if (v !== S.sp) setSpecies(v); });
+    $("#t-lamb").hidden = S.sp !== "sheep";
+    if (S.sp !== "sheep" && S.tab === "lamb") S.tab = "week";
+    for (const b of document.querySelectorAll(".tab")) {
+      const on = b.dataset.tab === S.tab;
+      b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1;
+      $("#" + b.dataset.tab).hidden = !on;
+    }
+    VIEWS[S.tab]();
+  }
+
+  // ---------- wiring ----------
+  window.addEventListener("hashchange", () => { const h = tabOf((location.hash || "").slice(1)); if (h && h !== S.tab) setTab(h); });
+  function setTab(t) {
+    if (!VIEWS[t] || (t === "lamb" && S.sp !== "sheep")) return;
+    S.tab = t; store.set("tab", t);
+    writeAddr(); render();
+  }
+  document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
+  $("#tablist").addEventListener("keydown", e => {
+    const tabs = [...document.querySelectorAll(".tab")].filter(b => !b.hidden), i = tabs.findIndex(b => b.dataset.tab === S.tab);
+    const n = e.key === "ArrowRight" ? tabs[(i + 1) % tabs.length] : e.key === "ArrowLeft" ? tabs[(i + tabs.length - 1) % tabs.length]
+      : e.key === "Home" ? tabs[0] : e.key === "End" ? tabs[tabs.length - 1] : null;
+    if (n) { setTab(n.dataset.tab); n.focus(); e.preventDefault(); }
+  });
+  document.addEventListener("pointerdown", e => {
+    for (const c of document.querySelectorAll(".chart")) if (!c.contains(e.target)) {
+      const t = c.querySelector(".tip"), x = c.querySelector(".cross");
+      if (t) t.hidden = true; if (x) x.setAttribute("visibility", "hidden");
+    }
+  });
+  $("#to-disc").addEventListener("click", e => { e.preventDefault(); $("#disc-full").open = true; $("#disclaimer").scrollIntoView({ behavior: "smooth" }); });
+  $("#market").addEventListener("change", e => { S.market = e.target.value; store.set(`market.${S.sp}.${D.meta.id}`, S.market); render(); });
+  $("#state").addEventListener("change", e => load(S.sp, e.target.value));
+  let rt; new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(() => D && VIEWS[S.tab](), 120); }).observe(document.querySelector("main"));
+
+  function setState(data) {
+    D = data;
+    const st = D.meta.id;
+    $("#state").replaceChildren(...D.meta.states.map(x => el("option", { value: x.id, text: x.name })));
+    $("#state").value = st;
+    const og1 = el("optgroup", { label: "Statewide" }, el("option", { value: "state", text: "All auctions" }));
+    const og2 = el("optgroup", { label: "One auction" }, D.markets.filter(m => m.id !== "state").map(m => el("option", { value: m.id, text: m.label || m.name })));
+    $("#market").replaceChildren(og1, og2);
+    const saved = LINKED ? null : store.get(`market.${S.sp}.${st}`);
+    S.market = saved && D.markets.some(m => m.id === saved) ? saved : "state";
+    $("#market").value = S.market;
+    S.week = "latest";
+    store.set("state", st); store.set("species", S.sp);
+    writeAddr();
+  }
+  const getData = (sp, st) => fetch(`data/${sp}_${st}.json`, { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  let loadSeq = 0;
+  // a state this species isn't listed for opens the first listed state, with a line saying so
+  function load(sp, st, note) {
+    $("#state").disabled = true;
+    const seq = ++loadSeq;
+    return getData(sp, st).catch(() => getData(sp, FIRST)).catch(() => getData(sp, (D && D.meta.states[0] && D.meta.states[0].id) || "tn"))
+      .then(data => {
+        if (seq !== loadSeq) return;
+        S.sp = sp; setState(data); render();
+        const n = $("#linknote");
+        n.hidden = !(note && data.meta.id !== st);
+        if (!n.hidden) n.textContent = `This page doesn't have ${sp === "goats" ? "goat" : "sheep and lamb"} prices for ${st.toUpperCase()}; showing ${data.meta.state}.`;
+      })
+      .catch(err => { console.error(err); $("#asof").textContent = "The price data didn't load. Refresh the page to try again."; })
+      .finally(() => { $("#state").disabled = false; });
+  }
+  function setSpecies(sp) {
+    LINKED = false;
+    S.wcls = S.tcls = S.scls = S.hol = null; S.tsid = S.ssid = null;
+    load(sp, D ? D.meta.id : FIRST, true);
+  }
+
+  // first view: ?species= and ?state= in the link, else the last one used
+  let first = FIRST, sp = "goats";
+  try {
+    const q = new URLSearchParams(location.search);
+    first = (q.get("state") || (LINKED ? "" : store.get("state")) || FIRST).toLowerCase();
+    sp = (q.get("species") || (LINKED ? "" : store.get("species")) || "goats").toLowerCase();
+  } catch (e) { /* no query */ }
+  if (!/^[a-z]{2}$/.test(first)) first = FIRST;
+  if (!["goats", "sheep"].includes(sp)) sp = ["goat", "kids"].includes(sp) ? "goats" : ["lamb", "lambs"].includes(sp) ? "sheep" : "goats";
+  S.sp = sp;
+  const h = tabOf((location.hash || "").slice(1));
+  S.tab = h || (!LINKED && tabOf(store.get("tab") || "")) || "week";
+  if (S.tab === "lamb" && sp !== "sheep") S.tab = "week";
+  load(sp, first, LINKED);
+})();
+
+// Share this view (ADDRESS_STANDARD.md): the phone's share sheet where there is one, otherwise copy the
+// address, which always holds the view on screen; where the clipboard is blocked, the link in a box.
+(() => {
+  const btn = document.getElementById("share-view"), msg = document.getElementById("share-msg");
+  if (!btn) return;
+  const say = t => { msg.textContent = t; btn.textContent = t; clearTimeout(btn._t);
+    btn._t = setTimeout(() => { btn.textContent = "Share this view"; msg.textContent = ""; }, 2500); };
+  const box = document.getElementById("share-box"), field = document.getElementById("share-url");
+  const hideBox = () => { box.hidden = true; };
+  const showBox = (url) => {
+    field.value = url; box.hidden = false; field.focus(); field.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    if (ok) { hideBox(); btn.focus(); say("Link copied"); }
+    else { msg.textContent = "Copy the link shown below the button."; }
+  };
+  btn.addEventListener("click", async () => {
+    const url = location.href;
+    if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+      try { await navigator.share({ title: document.title, url }); return; } catch (e) { if (e && e.name === "AbortError") return; }
+    }
+    try { await navigator.clipboard.writeText(url); say("Link copied"); hideBox(); }
+    catch (e) { showBox(url); }
+  });
+  document.getElementById("share-close").addEventListener("click", () => { hideBox(); btn.focus(); });
+  field.addEventListener("focus", () => field.select());
+  field.addEventListener("keydown", (e) => { if (e.key === "Escape") { hideBox(); btn.focus(); } });
+})();
+
+// Visit counts (GoatCounter): which tabs people open and how often they share, as plain events with no
+// identity attached. Named "<tool>: <tab label>"; nothing is sent when the counter didn't load.
+(() => {
+  const tool = location.pathname.split("/").filter(Boolean).pop() || "page";
+  const count = path => { try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path, title: path, event: true }); } catch (e) { /* counting never breaks the page */ } };
+  document.addEventListener("click", e => {
+    const t = e.target.closest('[role="tab"]');
+    if (t) count(`${tool}: ${t.textContent.trim()}`);
+    if (e.target.closest("#species button")) count(`${tool}: ${e.target.closest("button").textContent.trim()}`);
+    if (e.target.closest("#share-view")) count(`${tool}: share`);
+  });
+})();
+</script>
+
+</body>
+</html>
