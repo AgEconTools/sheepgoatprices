@@ -817,7 +817,9 @@ details.method > :not(summary) { margin-top: 10px; }
     $("#foot-gen").textContent = `Sales through ${wday(D.meta.through, true)}. Page ${D.meta.build ? `version ${D.meta.build}, ` : ""}built ` +
       `${/^\d{4}-\d\d-\d\d$/.test(bday) ? wday(bday, true) : g}${hm ? `, ${hm} CT` : ""}. Updates every morning as USDA posts new reports.`;
     $("#foot-year").textContent = okB ? ct({ year: "numeric" }) : g.slice(0, 4);
-    $("#foot-unit").textContent = `Each state is shown the way most of its head sell: per hundredweight (cwt) or by the head. ${stName()} ` +
+    $("#foot-src").textContent = `Prices come from USDA Agricultural Marketing Service auction reports co-published with the ${D.meta.agency}. ` +
+      "On the National lamb tab, the packer price and the lamb cutout are USDA's own reports.";
+    $("#foot-unit").textContent =`Each state is shown the way most of its head sell: per hundredweight (cwt) or by the head. ${stName()} ` +
       `${S.sp === "goats" ? "goats" : "sheep and lambs"} are shown in ${unitWords()}. Prices are averaged by head; a lot sold the other way ` +
       "is converted at its own average weight.";
   }
